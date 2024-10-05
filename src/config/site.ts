@@ -6,22 +6,24 @@ export const siteConfig = {
     "Plant Pals is a social platform where gardening enthusiasts share experiences, tips, and tricks to grow their passion for plants.",
   navItems: [
     {
-      label: "Home",
+      label: "News Feed",
       href: "/",
     },
-  ],
-  navMenuItems: [
     {
       label: "Profile",
       href: "/profile",
     },
     {
-      label: "Dashboard",
-      href: "/dashboard",
+      label: "About",
+      href: "/about-us",
     },
     {
-      label: "Logout",
-      href: "/logout",
+      label: "Contact",
+      href: "/contact-us",
+    },
+    {
+      label: "Gallery",
+      href: "/gallery",
     },
   ],
   links: {},

@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { TSetModalContent } from "./ForgetPasswordModal";
 import { useUserCheckResetCode } from "@/src/hooks/auth.mutate.hook";
 import OTPInput from "react-otp-input";
-import FilledButton from "../../UI/button/FilledButton";
+import PPButton from "../../UI/button/PPButton";
 
 type TVerifyOtpModalItem = {
   resetEmail: string;
@@ -73,7 +73,7 @@ const VerifyOtpModalItem = ({
         <div className="text-red-600 font-medium ml-1 text-xs mb-6">
           {error && <p className="mt-7">{error?.message}</p>}
         </div>
-        <FilledButton
+        <PPButton
           onClick={onSubmit}
           buttonText="Verify OTP"
           className="mt-4"

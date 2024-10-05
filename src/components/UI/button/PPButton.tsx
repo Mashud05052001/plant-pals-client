@@ -15,7 +15,7 @@ type TProps = {
   onClick?: () => void;
 };
 
-export default function FilledButton({
+export default function PPButton({
   buttonText = "Submit",
   buttonType = "submit",
   variant = "solid",

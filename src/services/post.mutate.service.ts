@@ -1,0 +1,44 @@
+"use server";
+
+import { FieldValues } from "react-hook-form";
+import axiosInstance from "../lib/axiosInstance";
+import { TPost, TSuccess, TUser } from "../types";
+import catchServiceAsync from "../utils/servicesCatchAsync";
+
+export const createPostService = catchServiceAsync(
+  async (payload: FormData) => {
+    const res = await axiosInstance.post(`/posts`, payload);
+    const data = res.data as TSuccess<TPost>;
+    return data;
+  }
+);
+
+export const updatePostService = catchServiceAsync(
+  async (payload: FieldValues, postId: string) => {
+    const res = await axiosInstance.patch(`/posts/${postId}`, payload);
+    const data = res.data as TSuccess<TPost>;
+    return data;
+  }
+);
+
+export const deletePostService = catchServiceAsync(async (postId: string) => {
+  const res = await axiosInstance.delete(`/posts/${postId}`);
+  const data = res.data as TSuccess<string>;
+  return data;
+});
+
+export const voatingPostService = catchServiceAsync(
+  async (payload: { postId: string; value: number }) => {
+    const res = await axiosInstance.post(`/posts/vote`, payload);
+    const data = res.data as TSuccess<TPost>;
+    return data;
+  }
+);
+
+export const makeFavouritePostService = catchServiceAsync(
+  async (postId: string) => {
+    const res = await axiosInstance.post(`/posts/favourite/${postId}`);
+    const data = res.data as TSuccess<TUser>;
+    return data;
+  }
+);

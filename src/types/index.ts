@@ -1,5 +1,5 @@
-export * from "./auth.types";
 export * from "./response.types";
+export * from "./responseData.types";
 
 import { ReactNode, SVGProps } from "react";
 

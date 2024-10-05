@@ -18,6 +18,7 @@ export const registerUserService = catchServiceAsync(
     return data;
   }
 );
+
 export const loginUserService = catchServiceAsync(
   async (payload: FieldValues) => {
     const res = await axiosInstance.post("/auth/login", payload);
@@ -40,6 +41,11 @@ export const getCurrentUser = async () => {
   let decodedData: null | TJwtUser = null;
   if (accessToken) decodedData = await jwtDecode(accessToken);
   return decodedData;
+};
+
+export const getAccessToken = async () => {
+  const accessToken = cookies().get("accessToken")?.value || null;
+  return accessToken;
 };
 
 export const changePasswordService = catchServiceAsync(

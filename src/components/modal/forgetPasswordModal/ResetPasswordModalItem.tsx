@@ -6,7 +6,7 @@ import PPForm from "../../UI/form/PPForm";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { resetPasswordValidationSchema } from "@/src/schemas/auth.schema";
 import PPInput from "../../UI/form/PPInput";
-import FilledButton from "../../UI/button/FilledButton";
+import PPButton from "../../UI/button/PPButton";
 
 type TResetPasswordModalItem = {
   setOpenModal: Dispatch<SetStateAction<boolean>>;
@@ -55,7 +55,7 @@ const ResetPasswordModalItem = ({
           <div className="text-red-600 font-medium ml-1 text-xs mb-6">
             {error && <p className="mt-7">{error?.message}</p>}
           </div>
-          <FilledButton
+          <PPButton
             buttonText="Reset Password"
             className="mt-4"
             isLoading={isLoading}

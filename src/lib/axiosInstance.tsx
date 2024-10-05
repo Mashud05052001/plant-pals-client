@@ -1,21 +1,20 @@
-"use server";
-import envConfig from "@/src/config/envConfig";
 import axios from "axios";
-import { cookies } from "next/headers";
+import { getAccessToken } from "../services/auth.mutate.service";
 
 const axiosInstance = axios.create({
-  baseURL: envConfig.baseAPI,
+  baseURL: "http://localhost:5000/api/v1",
 });
 
 axiosInstance.interceptors.request.use(
-  function (config) {
-    const accessToken = cookies().get("accessToken")?.value;
-    if (accessToken) config.headers.Authorization = accessToken;
+  async function (config) {
+    const accessToken = await getAccessToken();
+    if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
     return config;
   },
   function (error) {
     return Promise.reject(error);
   }
 );
+// TODO : If access token failed using refresh token again generate the access token
 
 export default axiosInstance;

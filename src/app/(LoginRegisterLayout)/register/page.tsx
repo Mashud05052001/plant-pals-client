@@ -1,6 +1,6 @@
 "use client";
 
-import FilledButton from "@/src/components/UI/button/FilledButton";
+import PPButton from "@/src/components/UI/button/PPButton";
 import CenterContainer from "@/src/components/UI/container/CenterContainer";
 import PPForm from "@/src/components/UI/form/PPForm";
 import PPInput from "@/src/components/UI/form/PPInput";
@@ -70,7 +70,7 @@ export default function Page() {
               )}
             </div>
 
-            <FilledButton
+            <PPButton
               buttonText="Register"
               buttonType="submit"
               isLoading={isLoading}

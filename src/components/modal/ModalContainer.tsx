@@ -17,6 +17,7 @@ type TProps = {
   title: string;
   outsideClickToCloseModal?: boolean;
   hideCloseButton?: boolean;
+  placement?: "bottom" | "bottom-center" | "center" | "top" | "top-center";
   backdrop?: "opaque" | "blur" | "transparent";
   size?:
     | "xs"
@@ -33,6 +34,7 @@ type TProps = {
 
 const ModalContainer = ({
   isOpen,
+  placement = "center",
   setIsOpen,
   triggerElement: openModalDiv = <Button>Open Modal</Button>,
   title,
@@ -69,6 +71,7 @@ const ModalContainer = ({
         onClose={handleClose}
         backdrop={backdrop}
         hideCloseButton={hideCloseButton}
+        placement={placement}
       >
         <ModalContent className="py-3 px-2">
           {() => (

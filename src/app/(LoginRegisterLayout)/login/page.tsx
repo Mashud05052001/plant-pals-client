@@ -1,6 +1,6 @@
 "use client";
 
-import FilledButton from "@/src/components/UI/button/FilledButton";
+import PPButton from "@/src/components/UI/button/PPButton";
 import CenterContainer from "@/src/components/UI/container/CenterContainer";
 import PPForm from "@/src/components/UI/form/PPForm";
 import PPInput from "@/src/components/UI/form/PPInput";
@@ -30,10 +30,14 @@ export default function Page() {
   useEffect(() => {
     if (isSuccess) {
       setUserLoading(true);
-      router.replace(redirect);
+      // router.replace(redirect);
+      // router.push(redirect);
     }
   }, [isSuccess]);
-
+  const defaultdata = {
+    email: "masudmahi05@gmail.com",
+    password: "12345678",
+  };
   return (
     <div>
       <CenterContainer className="mx-auto w-96 sm:w-8/12 md:w-1/2 lg:w-5/12 rounded-lg border bg-white p-7 shadow-lg sm:p-10  border-common-300">
@@ -41,6 +45,7 @@ export default function Page() {
           <PPForm
             onSubmit={onSubmit}
             resolver={zodResolver(loginValidationSchema)}
+            defaultValues={defaultdata}
           >
             <div className="space-y-6">
               <h1 className="text-3xl font-semibold tracking-tight text-common-700">
@@ -60,7 +65,7 @@ export default function Page() {
                 )}
               </div>
 
-              <FilledButton
+              <PPButton
                 buttonText="Login"
                 buttonType="submit"
                 isLoading={isLoginLoading}

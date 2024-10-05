@@ -6,7 +6,7 @@ import PPForm from "../../UI/form/PPForm";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { forgetPasswordValidationSchema } from "@/src/schemas/auth.schema";
 import PPInput from "../../UI/form/PPInput";
-import FilledButton from "../../UI/button/FilledButton";
+import PPButton from "../../UI/button/PPButton";
 
 type TForgetPasswordModalItem = {
   setModalContent: TSetModalContent;
@@ -44,7 +44,7 @@ const ForgetPasswordModalItem = ({
           <div className="text-red-600 font-medium ml-1 text-xs mb-6">
             {error && <p className="mt-7">{error?.message}</p>}
           </div>
-          <FilledButton
+          <PPButton
             buttonText="Submit"
             className={`${error ?? "mt-4"}`}
             isLoading={isLoading}
