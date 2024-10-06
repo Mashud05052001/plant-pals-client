@@ -30,8 +30,7 @@ export default function Page() {
   useEffect(() => {
     if (isSuccess) {
       setUserLoading(true);
-      // router.replace(redirect);
-      // router.push(redirect);
+      router.replace(redirect);
     }
   }, [isSuccess]);
   const defaultdata = {

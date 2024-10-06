@@ -1,5 +1,5 @@
 "use client";
-import { Select, SelectItem } from "@nextui-org/select";
+import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
 import { Controller } from "react-hook-form";
 
 export type TSelectOption = { key: string; label: string };
@@ -13,7 +13,7 @@ type TProps = {
   isDisabled?: boolean;
 };
 
-export default function PPSelect({
+export default function PPAutocomplete({
   name,
   label,
   options,
@@ -26,7 +26,7 @@ export default function PPSelect({
       name={name}
       render={({ field, fieldState: { error } }) => (
         <div className="relative">
-          <Select
+          <Autocomplete
             isDisabled={isDisabled}
             {...field}
             label={label}
@@ -34,9 +34,9 @@ export default function PPSelect({
             size={size}
           >
             {options.map((item) => (
-              <SelectItem key={item.key}>{item.label}</SelectItem>
+              <AutocompleteItem key={item.key}>{item.label}</AutocompleteItem>
             ))}
-          </Select>
+          </Autocomplete>
           {error && (
             <div className="absolute left-1 bottom-[-1.4rem] text-red-500 whitespace-nowrap overflow-hidden text-sm font-medium text-ellipsis">
               <small>{error.message}</small>

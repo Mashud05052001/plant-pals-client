@@ -8,6 +8,7 @@ const catchServiceAsync = <T = any>(fn: (...args: any[]) => Promise<T>) => {
     try {
       return await fn(...args);
     } catch (error) {
+      console.log((error as AxiosError)?.response?.data);
       const errorMessage = ((error as AxiosError)?.response?.data as TError)
         ?.message;
       throw new Error(errorMessage || "An unexpected error occurred");

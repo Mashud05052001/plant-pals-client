@@ -10,10 +10,8 @@ export default function Layout({ children }: TProps) {
   return (
     <div className="relative flex flex-col h-screen">
       <Navbar />
-      <CommonContainer className="flex-grow mt-8">{children}</CommonContainer>
-
-      <CommonContainer>
-        <Footer />
+      <CommonContainer className="flex-grow mt-8 pb-8">
+        {children}
       </CommonContainer>
     </div>
   );

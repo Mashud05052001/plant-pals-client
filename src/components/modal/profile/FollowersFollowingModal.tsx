@@ -1,15 +1,13 @@
 "use client";
-import { ReactNode, useEffect, useState } from "react";
-import ModalContainer from "../ModalContainer";
-import { TUser } from "@/src/types";
-import { divider } from "@nextui-org/react";
-import { RiUserUnfollowFill } from "react-icons/ri";
-import Image from "next/image";
 import noProfileImage from "@/src/assets/no-profile.jpg";
-import Link from "next/link";
-import { IoTrashSharp } from "react-icons/io5";
 import { useFollowUser } from "@/src/hooks/user.mutate.hook";
-import { revalidateTag } from "next/cache";
+import { TUser } from "@/src/types";
+import Image from "next/image";
+import Link from "next/link";
+import { ReactNode, useState } from "react";
+import { IoTrashSharp } from "react-icons/io5";
+import { RiUserUnfollowFill } from "react-icons/ri";
+import ModalContainer from "../ModalContainer";
 
 type TProps = {
   children: ReactNode;

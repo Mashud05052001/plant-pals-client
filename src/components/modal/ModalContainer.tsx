@@ -62,6 +62,7 @@ const ModalContainer = ({
         role="button"
         tabIndex={0}
         aria-pressed={isOpen}
+        className="z-[100]"
       >
         {openModalDiv}
       </div>

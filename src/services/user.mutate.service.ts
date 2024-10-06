@@ -17,6 +17,7 @@ export const changeUserRoleService = catchServiceAsync(
 export const updateMeService = catchServiceAsync(
   async (payload: FieldValues) => {
     const res = await axiosInstance.patch(`/users/update-me`, payload);
+    revalidateTag("myprofile");
     const data = res.data as TSuccess<TUser>;
     return data;
   }
@@ -28,6 +29,7 @@ export const updateProfilePicture = catchServiceAsync(
       `/users/update-profile-picture`,
       payload
     );
+    revalidateTag("myprofile");
     const data = res.data as TSuccess<TUser>;
     return data;
   }

@@ -8,7 +8,6 @@ import {
   updateMeService,
   updateProfilePicture,
 } from "../services/user.mutate.service";
-import { revalidateTag } from "next/cache";
 
 export const useChangeUserRole = () => {
   return useMutation<any, Error, string, unknown>({

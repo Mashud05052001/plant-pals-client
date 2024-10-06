@@ -12,7 +12,6 @@ export default function FavouritePostHeader({
   title,
   description,
   createdAt,
-  createdUserId,
 }: TProps) {
   return (
     <div>

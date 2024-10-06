@@ -3,7 +3,7 @@ import { Tab, Tabs } from "@nextui-org/tabs";
 import MyPosts from "./MyPosts";
 import MyFavourites from "./MyFavourites";
 import { TPost, TUser } from "@/src/types";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import CreateNewPost from "./CreateNewPost";
 
 type TProps = {
@@ -11,9 +11,20 @@ type TProps = {
 };
 
 export default function ProfileTabs({ userData }: TProps) {
+  const [activeTab, setActiveTab] = useState("posts");
+  const handleTabChange = (tabKey: "posts" | "favourites" | "create_post") => {
+    setActiveTab(tabKey);
+  };
   return (
     <div>
-      <Tabs aria-label="Options">
+      <Tabs
+        aria-label="Options"
+        defaultSelectedKey={activeTab}
+        selectedKey={activeTab}
+        onSelectionChange={(key) =>
+          handleTabChange(key as "posts" | "favourites" | "create_post")
+        }
+      >
         <Tab key="posts" title={<p className="px-8 font-medium">My Posts</p>}>
           <MyPosts posts={userData?.myPosts as TPost[]} />
         </Tab>
@@ -21,15 +32,16 @@ export default function ProfileTabs({ userData }: TProps) {
           key="favourites"
           title={<p className="px-8 font-medium">Favourites</p>}
         >
-          <Suspense fallback={<p>Loading...</p>}>
-            <MyFavourites postIds={userData?.favouritePosts as string[]} />
-          </Suspense>
+          <MyFavourites
+            postIds={userData?.favouritePosts as string[]}
+            userId={userData?._id}
+          />
         </Tab>
         <Tab
-          key="new post"
+          key="create_post"
           title={<p className="px-8 font-medium">Create New Post</p>}
         >
-          <CreateNewPost />
+          <CreateNewPost handleTabChange={handleTabChange} />
         </Tab>
       </Tabs>
     </div>

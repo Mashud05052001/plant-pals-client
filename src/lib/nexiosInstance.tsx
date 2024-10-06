@@ -28,6 +28,7 @@ nexiosInstance.interceptors.request.use((config) => {
 
 // TODO : If access token failed using refresh token again generate the access token
 nexiosInstance.interceptors.response.use((response) => {
+  // console.log(response);
   return response;
 });
 
