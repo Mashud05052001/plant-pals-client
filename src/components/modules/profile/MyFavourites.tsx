@@ -1,7 +1,7 @@
-import { TPost, TUser } from "@/src/types";
+import { useGetFavouritePosts } from "@/src/hooks/post.fetch.hook";
+import { TCategory, TUser } from "@/src/types";
 import PostGallery from "../SignlePost/PostGallery";
 import ProfilePostAction from "../SignlePost/ProfilePostAction";
-import { useGetFavouritePosts } from "@/src/hooks/post.fetch.hook";
 import ProfilePostHeader from "../SignlePost/ProfilePostHeader";
 
 type TProps = {
@@ -9,7 +9,7 @@ type TProps = {
   userId: string;
 };
 
-export default function MyFavourites({ postIds, userId }: TProps) {
+export default function MyFavourites({ postIds }: TProps) {
   // Call the hook unconditionally
   const { data: posts, isLoading, error } = useGetFavouritePosts(postIds);
 
@@ -53,6 +53,7 @@ export default function MyFavourites({ postIds, userId }: TProps) {
                     >
                   }
                   title={post?.title}
+                  category={(post?.category as TCategory).name}
                   description={post?.description}
                   createdAt={post?.createdAt}
                 />

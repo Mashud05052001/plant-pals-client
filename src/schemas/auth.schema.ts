@@ -30,6 +30,26 @@ export const registerValidationSchema = z
     path: ["confirmPassword"],
   });
 
+export const changePasswordValidationSchema = z
+  .object({
+    oldPassword: z
+      .string({
+        required_error: requiredMsg,
+        invalid_type_error: "Old password must be a string",
+      })
+      .min(6, { message: "*Password must be at least 6 characters" }),
+    newPassword: z
+      .string({
+        required_error: requiredMsg,
+        invalid_type_error: "New password must be a string",
+      })
+      .min(6, { message: "*Password must be at least 6 characters" }),
+  })
+  .refine((data) => data.oldPassword !== data.newPassword, {
+    message: "New password cannot be the same as the old password",
+    path: ["newPassword"],
+  });
+
 export const forgetPasswordValidationSchema = z.object({
   email: z
     .string({ required_error: requiredMsg })

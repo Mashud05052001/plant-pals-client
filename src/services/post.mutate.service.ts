@@ -1,10 +1,10 @@
 "use server";
 
+import { revalidateTag } from "next/cache";
 import { FieldValues } from "react-hook-form";
 import axiosInstance from "../lib/axiosInstance";
-import { TPost, TSuccess, TUser } from "../types";
+import { TPost, TSuccess } from "../types";
 import catchServiceAsync from "../utils/servicesCatchAsync";
-import { revalidateTag } from "next/cache";
 
 export const createPostService = catchServiceAsync(
   async (payload: FormData) => {
@@ -18,6 +18,7 @@ export const createPostService = catchServiceAsync(
 export const updatePostService = catchServiceAsync(
   async (payload: FieldValues, postId: string) => {
     const res = await axiosInstance.patch(`/posts/${postId}`, payload);
+    revalidateTag("myprofile");
     const data = res.data as TSuccess<TPost>;
     return data;
   }

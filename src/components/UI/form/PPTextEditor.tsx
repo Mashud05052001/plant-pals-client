@@ -29,7 +29,7 @@ const toolbarOptions = [
   ["clean"],
 ];
 
-export default function PPSelect({ name, label, className }: TProps) {
+export default function PPTextEditor({ name, label, className }: TProps) {
   return (
     <Controller
       name={name}

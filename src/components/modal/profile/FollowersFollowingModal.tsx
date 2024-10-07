@@ -17,11 +17,7 @@ type TProps = {
 
 const FollowersFollowingModal = ({ title, children, users }: TProps) => {
   const [openModal, setOpenModal] = useState(false);
-  const {
-    mutate: handleRemoveUserFromFollowersOrFollowing,
-    isLoading,
-    isSuccess,
-  } = useFollowUser();
+  const { mutate: handleRemoveUserFromFollowersOrFollowing } = useFollowUser();
 
   const handleRemove = (userID: string, userName: string) => {
     const confirm = window.confirm(

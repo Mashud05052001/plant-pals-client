@@ -1,10 +1,10 @@
 "use client";
-import { Tab, Tabs } from "@nextui-org/tabs";
-import MyPosts from "./MyPosts";
-import MyFavourites from "./MyFavourites";
 import { TPost, TUser } from "@/src/types";
-import { Suspense, useState } from "react";
+import { Tab, Tabs } from "@nextui-org/tabs";
+import { useState } from "react";
 import CreateNewPost from "./CreateNewPost";
+import MyFavourites from "./MyFavourites";
+import MyPosts from "./MyPosts";
 
 type TProps = {
   userData: TUser;

@@ -1,4 +1,3 @@
-import axiosInstance from "@/src/lib/axiosInstance";
 import moment from "moment";
 
 type TProps = {

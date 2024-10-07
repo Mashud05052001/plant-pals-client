@@ -1,25 +1,17 @@
 "use client";
-import { TImagesFile, TImagesPreview, TSuccess } from "@/src/types";
+import { useGetAllCategories } from "@/src/hooks/category.fetch.hook";
+import { useCreatePost } from "@/src/hooks/post.mutate.hook";
+import { createPostSchema } from "@/src/schemas/post.schema";
+import { TImagesFile, TImagesPreview } from "@/src/types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useState } from "react";
+import { FieldValues, SubmitHandler } from "react-hook-form";
+import PPButton from "../../UI/button/PPButton";
 import PPForm from "../../UI/form/PPForm";
 import PPInput from "../../UI/form/PPInput";
-import { useQuery } from "@tanstack/react-query";
-import axiosInstance from "@/src/lib/axiosInstance";
-import { FieldValues, SubmitHandler } from "react-hook-form";
 import PPSelect, { TSelectOption } from "../../UI/form/PPSelect";
 import PPTextEditor from "../../UI/form/PPTextEditor";
-import PPButton from "../../UI/button/PPButton";
-import { ChangeEvent, useEffect, useState } from "react";
-import { RiImageAddFill } from "react-icons/ri";
-import { RxCross2 } from "react-icons/rx";
-import { ImCross } from "react-icons/im";
-import { toast } from "sonner";
 import PostImagesHandle from "./PostImagesHandle";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { createPostSchema } from "@/src/schemas/post.schema";
-import { useCreatePost } from "@/src/hooks/post.mutate.hook";
-import { useRouter } from "next/navigation";
-import PPAutocomplete from "../../UI/form/PPAutocomplete";
-import { useGetAllCategories } from "@/src/hooks/category.fetch.hook";
 
 type TProps = {
   handleTabChange: (tabKey: "posts" | "favourites" | "create_post") => void;
@@ -34,7 +26,6 @@ const CreateNewPost = ({ handleTabChange }: TProps) => {
     isLoading: createPostLoading,
     isSuccess,
   } = useCreatePost();
-  const router = useRouter();
 
   const { data: categories, isLoading: categoriesLoading } =
     useGetAllCategories();

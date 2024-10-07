@@ -1,10 +1,12 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "sonner";
 import {
   createPostService,
   deletePostService,
   manageFavouritePostService,
+  updatePostService,
 } from "../services/post.mutate.service";
-import { toast } from "sonner";
+import { TPost } from "../types";
 
 export const useCreatePost = () => {
   return useMutation<any, Error, FormData, unknown>({
@@ -12,6 +14,26 @@ export const useCreatePost = () => {
     mutationFn: async (payload: FormData) => await createPostService(payload),
     onSuccess: () => {
       toast.success("Post created successfully");
+    },
+    onError: (error) => {
+      console.log(error);
+      toast.error(`Failed. ${error?.message}`);
+    },
+  });
+};
+
+export const useUpdatePost = () => {
+  return useMutation<
+    any,
+    Error,
+    { payload: Partial<TPost>; postId: string },
+    unknown
+  >({
+    mutationKey: ["UPDATE_POST"],
+    mutationFn: async ({ payload, postId }) =>
+      await updatePostService(payload, postId),
+    onSuccess: () => {
+      toast.success("Post updated successfully");
     },
     onError: (error) => {
       console.log(error);

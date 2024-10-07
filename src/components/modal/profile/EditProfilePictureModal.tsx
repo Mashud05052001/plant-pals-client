@@ -1,14 +1,12 @@
 "use client";
-import { useUpdateProfilePicture } from "@/src/hooks/user.mutate.hook";
-import { TUser } from "@/src/types";
 import noProfileImage from "@/src/assets/no-profile.jpg";
+import { useUpdateProfilePicture } from "@/src/hooks/user.mutate.hook";
+import Image from "next/image";
 import { ChangeEvent, ReactNode, useEffect, useState } from "react";
-import ModalContainer from "../ModalContainer";
-import Image, { StaticImageData } from "next/image";
-import { toast } from "sonner";
 import { RiImageAddFill } from "react-icons/ri";
-import { RxCross2 } from "react-icons/rx";
+import { toast } from "sonner";
 import PPButton from "../../UI/button/PPButton";
+import ModalContainer from "../ModalContainer";
 
 type TProps = {
   children: ReactNode;

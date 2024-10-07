@@ -31,10 +31,12 @@ export const useUserLogin = () => {
       toast.success("User logged in successfully");
     },
     onError: (error) => {
+      console.log(error);
       toast.error(`Login failed. ${error?.message}`);
     },
   });
 };
+
 export const useUserPasswordChange = () => {
   return useMutation<any, Error, FieldValues, unknown>({
     mutationKey: ["USER_PASSWORD_CHANGE"],

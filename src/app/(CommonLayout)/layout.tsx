@@ -1,5 +1,4 @@
-import Footer from "@/src/components/shared/Footer";
-import { Navbar } from "@/src/components/shared/Navbar";
+import { Navbar } from "@/src/components/shared/navbar/Navbar";
 import CommonContainer from "@/src/components/UI/container/CommonContainer";
 import { ReactNode } from "react";
 

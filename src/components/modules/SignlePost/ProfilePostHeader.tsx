@@ -11,19 +11,20 @@ import {
   DropdownTrigger,
 } from "@nextui-org/dropdown";
 import { Button, Divider } from "@nextui-org/react";
-import DOMPurify from "dompurify";
 import moment from "moment";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { FcLike } from "react-icons/fc";
 import { HiDotsVertical } from "react-icons/hi";
 import { IoTrashSharp } from "react-icons/io5";
 import { MdEdit } from "react-icons/md";
-import { FcLike } from "react-icons/fc";
 import PartialComponentGlassLoading from "../../shared/loading/PartialCompoentLoading";
+import Link from "next/link";
 
 type TProps = {
   postId: string;
   title: string;
+  category: string;
   createdAt: Date;
   description: string;
   createdUserData?: Pick<
@@ -36,6 +37,7 @@ type TProps = {
 export default function ProfilePostHeader({
   postId,
   title,
+  category,
   description,
   createdAt,
   type,
@@ -162,8 +164,11 @@ export default function ProfilePostHeader({
         )}
 
         <div>
-          <h2 className="font-semibold text-lg text-gray-800 ">{title}</h2>
-          <p className="text-sm text-gray-500 mb-3">
+          <div className="flex items-end">
+            <h3 className="font-semibold text-lg text-gray-800 ">{title}</h3>
+            <h4 className="pl-1 text-sm pb-0.5"> ({category && category})</h4>
+          </div>
+          <p className="text-sm text-gray-500 mb-3 mt-1">
             Date: {moment(createdAt).format(`DD-MM-YYYY`)}
           </p>
 
@@ -187,11 +192,16 @@ export default function ProfilePostHeader({
         >
           <DropdownTrigger>{optionsButtons}</DropdownTrigger>
           <DropdownMenu aria-label="Static Actions">
-            <DropdownItem
-              key="edit"
-              startContent={<MdEdit className="size-4" />}
-            >
-              Edit
+            <DropdownItem key="edit">
+              <Link
+                href={`/posts/update-post/${postId}?redirect=/profile`}
+                className="bg-red-200"
+              >
+                <div className="flex  items-center space-x-2">
+                  <MdEdit className="size-4" />
+                  <p>Edit</p>
+                </div>
+              </Link>
             </DropdownItem>
             <DropdownItem
               key={"edit"}

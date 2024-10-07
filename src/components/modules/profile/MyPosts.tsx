@@ -1,4 +1,4 @@
-import { TPost } from "@/src/types";
+import { TCategory, TPost } from "@/src/types";
 import PostGallery from "../SignlePost/PostGallery";
 import ProfilePostAction from "../SignlePost/ProfilePostAction";
 import ProfilePostHeader from "../SignlePost/ProfilePostHeader";
@@ -22,6 +22,7 @@ const MyPosts = ({ posts }: TProps) => {
                   title={post?.title}
                   description={post?.description}
                   createdAt={post?.createdAt}
+                  category={(post?.category as TCategory).name}
                 />
                 {/* Post Images */}
                 <PostGallery images={post.images} />
