@@ -49,7 +49,12 @@ export default function MyFavourites({ postIds }: TProps) {
                   createdUserData={
                     post.user as Pick<
                       TUser,
-                      "_id" | "name" | "email" | "role" | "profilePicture"
+                      | "_id"
+                      | "name"
+                      | "email"
+                      | "role"
+                      | "profilePicture"
+                      | "favouritePosts"
                     >
                   }
                   title={post?.title}

@@ -1,12 +1,13 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import {
   createPostService,
   deletePostService,
   manageFavouritePostService,
   updatePostService,
+  voatingPostService,
 } from "../services/post.mutate.service";
-import { TPost } from "../types";
+import { TPost, TSuccessWithMeta } from "../types";
 
 export const useCreatePost = () => {
   return useMutation<any, Error, FormData, unknown>({
@@ -56,20 +57,60 @@ export const useDeletePost = () => {
 };
 
 export const useManageFavouritePost = () => {
+  const queryClient = useQueryClient();
   return useMutation<
     any,
     Error,
     { postId: string; value: "add" | "remove" },
     unknown
   >({
-    mutationKey: ["MANAGE_FAVOURITE_POST"],
     mutationFn: async ({ postId, value }) =>
       await manageFavouritePostService(postId, { value }),
+    onSuccess: (data, payload) => {
+      toast.success(data?.message);
+
+      if (payload.value === "remove") {
+        queryClient.setQueryData(
+          ["MANAGE_FAVOURITE_POST"],
+          (currentElement: any) => {
+            if (!currentElement || !Array.isArray(currentElement.data.data))
+              return currentElement;
+
+            // Filter out the post with the matching _id
+            const updatedData = currentElement.data.data.filter(
+              (post: TPost) => post._id !== payload.postId
+            );
+            return {
+              ...currentElement,
+              data: {
+                data: updatedData,
+                meta: {
+                  ...currentElement.data.meta,
+                  totalData: updatedData.length,
+                },
+              },
+            };
+          }
+        );
+      }
+      queryClient.invalidateQueries(["MANAGE_FAVOURITE_POST"]);
+    },
+
+    onError: (error: any) => {
+      console.log(error, "Following time error found");
+      toast.error(`Failed. ${error?.message}`);
+    },
+  });
+};
+
+export const useVoatingPost = () => {
+  return useMutation<any, Error, { postId: string; value: 1 | -1 }, unknown>({
+    mutationFn: async (payload) => await voatingPostService(payload),
     onSuccess: (data) => {
       toast.success(data?.message);
     },
     onError: (error: any) => {
-      console.log(error, "Following time error found");
+      console.log(error, "Voating time error found");
       toast.error(`Failed. ${error?.message}`);
     },
   });

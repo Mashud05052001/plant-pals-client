@@ -25,6 +25,15 @@ export type TUser = {
   createdAt: Date;
   updatedAt: Date;
 };
+export type TPlaneUser = Omit<
+  TUser,
+  "myPosts" | "favouritePosts" | "following" | "followers"
+> & {
+  myPosts: string[];
+  favouritePosts: string[];
+  following: string[];
+  followers: string[];
+};
 
 export type TVoatingUsers = {
   user: string | TUser;
@@ -46,6 +55,11 @@ export type TPost = {
   isVerified: boolean;
   createdAt: Date;
   updatedAt: Date;
+};
+
+export type TGallery = {
+  _id: string;
+  images: string[];
 };
 
 export type TCategory = {

@@ -7,6 +7,7 @@ import EditProfileModel from "../../modal/profile/EditProfileModal";
 import EditProfilePictureModel from "../../modal/profile/EditProfilePictureModal";
 import FollowersFollowingModal from "../../modal/profile/FollowersFollowingModal";
 import ChangePasswordModel from "../../modal/profile/ChangePasswordModal";
+import verified from "@/src/assets/verified.png";
 
 const ProfileHeader = ({ userData }: { userData: TUser }) => {
   const profilePicture = userData?.profilePicture || noProfileImage;
@@ -34,9 +35,21 @@ const ProfileHeader = ({ userData }: { userData: TUser }) => {
       <div className="space-y-4">
         <div className="space-y-1 flex flex-col md:flex-row items-center md:items-end md:space-x-12 justify-center">
           <div className="relative">
-            <div className="flex items-end">
-              <h2 className="text-3xl font-semibold">{userData.name}</h2>
-              <p className="text-sm pl-1 mb-1">_{userData?.role}</p>
+            <div className="flex items-center space-x-3">
+              <div className="flex items-end ">
+                <h2 className="text-3xl font-semibold">{userData.name}</h2>
+                <p className="text-sm pl-1 mb-1">_{userData?.role}</p>
+              </div>
+              {userData.isVerified && (
+                <div>
+                  <Image
+                    src={verified}
+                    alt="verified-logo"
+                    height={28}
+                    width={28}
+                  />
+                </div>
+              )}
             </div>
             <h4 className="font-medium">{userData.email}</h4>
             {userData?.bio && (

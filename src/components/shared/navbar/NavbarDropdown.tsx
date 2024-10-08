@@ -1,3 +1,4 @@
+"use client";
 import { useUserProvider } from "@/src/context/user.provider";
 import { logoutUser } from "@/src/services/auth.mutate.service";
 import { protectedRoutes } from "@/src/utils/protectedRoutes";
@@ -42,14 +43,14 @@ const NavbarDropdown = () => {
             <p className="font-semibold">{user?.email}</p>
           </DropdownItem>
           <DropdownItem key="my-profile" className="p-0">
-            <Link href={"/profile"} className="bg-red-200">
+            <Link href={"/profile"} className="">
               <button className="w-full flex justify-start p-2">
                 My Profile
               </button>
             </Link>
           </DropdownItem>
           <DropdownItem key="dashboard" className="p-0">
-            <Link href={dashboardLink} className="bg-red-200">
+            <Link href={dashboardLink} className="">
               <button className="w-full flex justify-start p-2">
                 Dashboard
               </button>

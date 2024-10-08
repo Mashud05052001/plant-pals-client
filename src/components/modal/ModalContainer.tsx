@@ -73,6 +73,7 @@ const ModalContainer = ({
         hideCloseButton={hideCloseButton}
         placement={placement}
         className="z-50"
+        scrollBehavior="inside"
       >
         <ModalContent className="py-3 px-2">
           {() => (

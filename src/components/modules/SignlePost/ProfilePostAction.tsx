@@ -1,4 +1,5 @@
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
+import { BiSolidDownvote, BiSolidUpvote } from "react-icons/bi";
 
 type TProps = {
   upvote: number;
@@ -16,14 +17,14 @@ export default function ProfilePostAction({
       <div className="flex items-center space-x-4">
         {/* Upvote Button */}
         <button className="flex items-center text-gray-500 hover:text-blue-500">
-          <FaArrowUp className="size-4" />
-          <span className="ml-1">{upvote}</span>
+          <BiSolidUpvote className="size-5" />
+          <span className="ml-1 text-lg font-semibold">{upvote}</span>
         </button>
 
         {/* Downvote Button */}
         <button className="flex items-center text-gray-500 hover:text-red-500">
-          <FaArrowDown className="size-4" />
-          <span className="ml-1">{downvote}</span>
+          <BiSolidDownvote className="size-5" />
+          <span className="ml-1 text-lg font-semibold">{downvote}</span>
         </button>
       </div>
 

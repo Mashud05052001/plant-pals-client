@@ -18,6 +18,7 @@ export const updateMeService = catchServiceAsync(
   async (payload: FieldValues) => {
     const res = await axiosInstance.patch(`/users/update-me`, payload);
     revalidateTag("myprofile");
+    revalidateTag("myInfo");
     const data = res.data as TSuccess<TUser>;
     return data;
   }
@@ -30,6 +31,7 @@ export const updateProfilePicture = catchServiceAsync(
       payload
     );
     revalidateTag("myprofile");
+    revalidateTag("myInfo");
     const data = res.data as TSuccess<TUser>;
     return data;
   }
@@ -40,6 +42,7 @@ export const followUserService = catchServiceAsync(
     const res = await axiosInstance.post(`/users/follow/${secondPersonId}`);
     const data = res.data as TSuccess<TFollowSuccessData>;
     revalidateTag("myprofile");
+    revalidateTag("myInfo");
     return data;
   }
 );

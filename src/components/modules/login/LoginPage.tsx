@@ -34,7 +34,7 @@ const LoginPage = () => {
   }, [isSuccess]);
   const defaultdata = {
     email: "masudmahi05@gmail.com",
-    password: "12345678",
+    password: "123456",
   };
   return (
     <div>

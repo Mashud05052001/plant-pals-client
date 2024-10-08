@@ -1,8 +1,9 @@
 import { Button } from "@nextui-org/react";
 import ButtonLoadingIcon from "../icons/buttonLoadingIcon";
+import { ReactNode } from "react";
 
 type TProps = {
-  buttonText?: string;
+  buttonText?: string | ReactNode;
   buttonType?: "button" | "submit" | "reset";
   variant?: "solid" | "shadow" | "ghost";
   size?: "sm" | "md" | "lg";
@@ -40,7 +41,7 @@ export default function PPButton({
       fullWidth={fullWidth}
       spinnerPlacement={spinnerPlacement}
       spinner={<ButtonLoadingIcon />}
-      className={`${className} px-10 text-base`}
+      className={` px-10 text-base ${className}`}
       onClick={onClick}
     >
       {buttonText}

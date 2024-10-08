@@ -25,7 +25,11 @@ export default function PostGallery({ images }: { images: string[] }) {
             } w-full`}
           >
             <Image
-              className=" w-full h-[300px] object-cover object-center"
+              className={`w-full ${
+                images.length === 4 || images.length === 3
+                  ? "h-[220px]"
+                  : "h-[300px]"
+              } object-cover object-center rounded-lg`}
               src={image}
               height={500}
               width={500}

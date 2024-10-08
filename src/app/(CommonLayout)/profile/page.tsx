@@ -2,20 +2,10 @@
 
 import ProfileHeader from "@/src/components/modules/profile/ProfileHeader";
 import ProfileTabs from "@/src/components/modules/profile/ProfileTabs";
-import nexiosInstance from "@/src/lib/nexiosInstance";
-import { TSuccess, TUser } from "@/src/types";
+import { getMyProfile } from "@/src/services/user.fetch.service";
 
 export default async function Page() {
-  const response = await nexiosInstance.get(
-    "/users/me?populate=myPosts,following,followers",
-    {
-      next: {
-        tags: ["myprofile"],
-        revalidate: 30,
-      },
-    }
-  );
-  const userData = (response?.data as TSuccess<TUser>).data;
+  const userData = await getMyProfile();
   // const profilePicture = userData?.profilePicture || noProfileImage;
 
   return (
