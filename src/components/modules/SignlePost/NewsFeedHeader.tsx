@@ -55,7 +55,7 @@ export default function NewsFeedHeader({
     isSuccess: isDeleteSuccess,
     isError: isDeleteError,
   } = useDeletePost();
-  const { mutate: handleFollowingUser, isLoading: isFollowinfLoading } =
+  const { mutate: handleFollowingUser, isLoading: isFollowingLoading } =
     useFollowUser();
   const {
     mutate: handleManageFavouritePost,
@@ -201,7 +201,7 @@ export default function NewsFeedHeader({
                             <Button
                               size="sm"
                               className="bg-gray-200 px-3 py-1 rounded-lg font-semibold cursor-pointer text-xs h-7"
-                              isLoading={isFollowinfLoading}
+                              isLoading={isFollowingLoading}
                               onClick={() =>
                                 handleFollow(
                                   (post?.user as TUser)._id,
@@ -218,7 +218,7 @@ export default function NewsFeedHeader({
                             <Button
                               size="sm"
                               className="bg-blue-500 text-white px-3 py-1 rounded-lg font-semibold cursor-pointer text-xs h-7"
-                              isLoading={isFollowinfLoading}
+                              isLoading={isFollowingLoading}
                               onClick={() =>
                                 handleFollow(
                                   (post?.user as TUser)._id,

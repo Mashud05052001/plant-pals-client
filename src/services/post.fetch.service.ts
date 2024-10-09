@@ -19,7 +19,6 @@ export const getNewsFeed = async (
   if (searchTerm || category) queryParams.append("sort", "-upvote");
   else queryParams.append("sort", "-createdAt");
 
-  console.log(queryParams.toString());
   const response = await nexiosInstance.get(
     `/posts?${queryParams.toString()}`,
     {

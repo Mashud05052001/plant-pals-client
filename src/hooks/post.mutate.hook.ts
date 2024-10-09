@@ -7,7 +7,7 @@ import {
   updatePostService,
   voatingPostService,
 } from "../services/post.mutate.service";
-import { TPost, TSuccessWithMeta } from "../types";
+import { TPost } from "../types";
 
 export const useCreatePost = () => {
   return useMutation<any, Error, FormData, unknown>({

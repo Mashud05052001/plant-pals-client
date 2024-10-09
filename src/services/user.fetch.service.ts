@@ -19,7 +19,32 @@ export const getMyProfile = async () => {
     "/users/me?populate=myPosts,following,followers",
     {
       next: {
-        tags: ["myprofile"],
+        tags: ["myProfile"],
+        revalidate: 30,
+      },
+    }
+  );
+  const userData = (response?.data as TSuccess<TUser>).data;
+  return userData;
+};
+
+export const getMyPosts = async () => {
+  const response = await nexiosInstance.get("/users/me?populate=myPosts", {
+    next: {
+      tags: ["myPosts"],
+      revalidate: 30,
+    },
+  });
+  const userData = (response?.data as TSuccess<TUser>).data;
+  return userData;
+};
+
+export const getMyFollowingFollowers = async () => {
+  const response = await nexiosInstance.get(
+    "/users/me?populate=following,followers",
+    {
+      next: {
+        tags: ["myFollow"],
         revalidate: 30,
       },
     }

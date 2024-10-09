@@ -39,7 +39,7 @@ const MyPosts = ({ posts }: TProps) => {
       ) : (
         <div>
           <h2 className="text-2xl font-semibold">
-            There have not create any posts
+            You have not create any posts.
           </h2>
         </div>
       )}

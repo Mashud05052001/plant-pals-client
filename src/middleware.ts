@@ -3,7 +3,11 @@ import { getCurrentUser } from "./services/auth.mutate.service";
 
 const authRoutes = ["/login", "/register"];
 const roleBasedRoutes = {
-  USER: ["^/user(/.*)?$", "^/profile(/.*)?$", "^/posts/update-post/[^/]+$"],
+  USER: [
+    "^/user/dashboard(/.*)?$",
+    "^/profile(/.*)?$",
+    "^/posts/update-post/[^/]+$",
+  ],
   ADMIN: ["^/admin(/.*)?$", "^/profile(/.*)?$", "^/posts/update-post/[^/]+$"],
 };
 
@@ -20,6 +24,14 @@ export async function middleware(request: NextRequest) {
   const userRole = user?.role;
   const routes = roleBasedRoutes[userRole];
   if (userRole && routes) {
+    // console.log(
+    //   routes.some((routePattern) => {
+    //     if (pathname.match(routePattern)) {
+    //       console.log(pathname, routePattern);
+    //     }
+    //     return "mahi";
+    //   })
+    // );
     if (routes.some((routePattern) => pathname.match(routePattern))) {
       return NextResponse.next();
     }

@@ -17,8 +17,9 @@ export const changeUserRoleService = catchServiceAsync(
 export const updateMeService = catchServiceAsync(
   async (payload: FieldValues) => {
     const res = await axiosInstance.patch(`/users/update-me`, payload);
-    revalidateTag("myprofile");
+    revalidateTag("myProfile");
     revalidateTag("myInfo");
+    revalidateTag("myPosts");
     const data = res.data as TSuccess<TUser>;
     return data;
   }
@@ -30,7 +31,8 @@ export const updateProfilePicture = catchServiceAsync(
       `/users/update-profile-picture`,
       payload
     );
-    revalidateTag("myprofile");
+    revalidateTag("myProfile");
+    revalidateTag("myPosts");
     revalidateTag("myInfo");
     const data = res.data as TSuccess<TUser>;
     return data;
@@ -41,8 +43,9 @@ export const followUserService = catchServiceAsync(
   async (secondPersonId: string) => {
     const res = await axiosInstance.post(`/users/follow/${secondPersonId}`);
     const data = res.data as TSuccess<TFollowSuccessData>;
-    revalidateTag("myprofile");
     revalidateTag("myInfo");
+    revalidateTag("myProfile");
+    revalidateTag("myFollow");
     return data;
   }
 );
