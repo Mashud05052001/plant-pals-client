@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import noProfile from "@/src/assets/no-profile.jpg";
 import { TComment, TPost, TUser } from "@/src/types";
 import { Textarea } from "@nextui-org/input";
@@ -22,10 +22,10 @@ import { Spinner } from "@nextui-org/react";
 
 type TProps = {
   children: React.ReactNode;
-  post: TPost;
+  postId: string;
 };
 
-const PostCommentsModal = ({ children, post }: TProps) => {
+const PostCommentsModal = ({ children, postId }: TProps) => {
   const { user } = useUserProvider();
   const [openModal, setOpenModal] = useState(false);
   const [newComment, setNewComment] = useState("");
@@ -39,7 +39,7 @@ const PostCommentsModal = ({ children, post }: TProps) => {
     data: commentsResponse,
     isLoading: getCommentsLoading,
     isSuccess: getCommentsSuccess,
-  } = useGetCommentsOfAPost(post?._id, openModal);
+  } = useGetCommentsOfAPost(postId, openModal);
   const {
     mutate: handleCreateComment,
     isLoading: commentCreateLoading,
@@ -59,7 +59,7 @@ const PostCommentsModal = ({ children, post }: TProps) => {
 
   const createAComment = () => {
     const payload = {
-      post: post?._id,
+      post: postId,
       message: newComment,
     };
     handleCreateComment(payload);

@@ -11,6 +11,7 @@ import {
 import { Avatar } from "@nextui-org/react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import envConfig from "@/src/config/envConfig";
 
 const NavbarDropdown = () => {
   const { user, setIsLoading } = useUserProvider();
@@ -34,7 +35,7 @@ const NavbarDropdown = () => {
             isBordered
             as="button"
             className="transition-transform"
-            src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+            src={user?.profilePicture || envConfig?.noProfilePic}
           />
         </DropdownTrigger>
         <DropdownMenu aria-label="Profile Actions" variant="flat">

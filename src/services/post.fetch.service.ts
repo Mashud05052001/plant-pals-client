@@ -1,7 +1,7 @@
 "use server";
 
 import nexiosInstance from "../lib/nexiosInstance";
-import { TPost, TSuccessWithMeta } from "../types";
+import { TPost, TSuccess, TSuccessWithMeta } from "../types";
 
 export const getNewsFeed = async (
   page: number = 1,
@@ -24,11 +24,21 @@ export const getNewsFeed = async (
     {
       next: {
         tags: ["newsFeed"],
-        revalidate: 30,
+        revalidate: 60,
       },
     }
   );
   const data = response.data as TSuccessWithMeta<TPost[]>;
 
   return data?.data || { data: [], meta: {} };
+};
+
+export const getSinglePost = async (postId: string) => {
+  const response = await nexiosInstance.get(`/posts/${postId}`, {
+    next: {
+      tags: ["singlePost"],
+    },
+  });
+  const data = response.data as TSuccess<TPost>;
+  return data?.data;
 };

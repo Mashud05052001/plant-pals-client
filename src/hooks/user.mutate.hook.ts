@@ -1,6 +1,6 @@
-import { useMutation } from "@tanstack/react-query";
-import { toast } from "sonner";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { FieldValues } from "react-hook-form";
+import { toast } from "sonner";
 import {
   changeUserRoleService,
   deleteUserService,
@@ -8,6 +8,8 @@ import {
   updateMeService,
   updateProfilePicture,
 } from "../services/user.mutate.service";
+import axiosInstance from "../lib/axiosInstance";
+import { TAllUser, TSuccessWithMeta } from "../types";
 
 export const useChangeUserRole = () => {
   return useMutation<any, Error, string, unknown>({
@@ -18,6 +20,16 @@ export const useChangeUserRole = () => {
     },
     onError: (error) => {
       toast.error(`Failed to change user role. ${error?.message}`);
+    },
+  });
+};
+export const useGetAllUsersForAdmin = () => {
+  return useQuery({
+    queryKey: ["CHANGE_USER_ROLE"],
+    queryFn: async () => {
+      const response = await axiosInstance.get("/users/all");
+      const userData = response?.data as TSuccessWithMeta<TAllUser[]>;
+      return userData?.data;
     },
   });
 };

@@ -1,4 +1,4 @@
-import UserDashboardPosts from "@/src/components/modules/userDashboard/myPosts";
+import UserDashboardPosts from "@/src/components/modules/userDashboard/UserDashboardMyPosts";
 import { getMyPosts } from "@/src/services/user.fetch.service";
 import Link from "next/link";
 

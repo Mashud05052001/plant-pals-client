@@ -2,11 +2,14 @@
 import { TPlaneUser, TPost, TUser } from "@/src/types";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useVoatingPost } from "@/src/hooks/post.mutate.hook";
-import { Spinner } from "@nextui-org/react";
+import { Button, Spinner } from "@nextui-org/react";
 import { BiSolidDownvote, BiSolidUpvote } from "react-icons/bi";
 import { toast } from "sonner";
 import LoginConfirmationModal from "../../modal/singleModal/LoginConfirmationModal";
 import PostCommentsModal from "../../modal/singleModal/PostCommentsModal";
+import { IoMdShare } from "react-icons/io";
+import { handleCopyToClipboard } from "@/src/utils/copyToClipboard";
+import envConfig from "@/src/config/envConfig";
 
 type TProps = {
   post: TPost;
@@ -14,7 +17,7 @@ type TProps = {
   currentLoginUserEmail?: string | null;
   setAllStaticPosts: Dispatch<SetStateAction<TPost[]>>;
 };
-// { user: string | TUser;  value: 1 | -1}
+
 export default function NewsFeedAction({
   post,
   loginUserData,
@@ -210,12 +213,23 @@ export default function NewsFeedAction({
       </div>
 
       {/* Comment Count */}
-      <PostCommentsModal post={post}>
-        <p className="text-gray-500 cursor-pointer hover:underline ">
-          {post?.comments.length}{" "}
-          {post?.comments.length === 1 ? "Comment" : "Comments"}
-        </p>
-      </PostCommentsModal>
+      <div className="flex space-x-6 items-center">
+        <PostCommentsModal postId={post?._id}>
+          <p className="text-gray-500 cursor-pointer hover:underline ">
+            {post?.comments.length}{" "}
+            {post?.comments.length === 1 ? "Comment" : "Comments"}
+          </p>
+        </PostCommentsModal>
+
+        <Button variant="faded" size="sm" className="border-none">
+          <IoMdShare
+            className="size-6 cursor-pointer"
+            onClick={() => {
+              handleCopyToClipboard(`${envConfig.baseURL}/posts/${post?._id}`);
+            }}
+          />
+        </Button>
+      </div>
     </div>
   );
 }

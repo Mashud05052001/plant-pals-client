@@ -43,6 +43,7 @@ export const voatingPostService = catchServiceAsync(
   async (payload: { postId: string; value: 1 | -1 }) => {
     const res = await axiosInstance.post(`/posts/vote`, payload);
     revalidateTag("newsFeed");
+    revalidateTag("singleUser");
     const data = res.data as TSuccess<TPost>;
     return data;
   }
@@ -54,6 +55,7 @@ export const manageFavouritePostService = catchServiceAsync(
     revalidateTag("myProfile");
     revalidateTag("newsFeed");
     revalidateTag("myInfo");
+    revalidateTag("singleUser");
     const data = res.data as TSuccess<string>;
     return data;
   }

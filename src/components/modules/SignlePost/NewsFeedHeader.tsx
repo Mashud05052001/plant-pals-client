@@ -48,7 +48,11 @@ export default function NewsFeedHeader({
   const postCategory = (post?.category as TCategory)?.name;
   const isPostUserFollowing =
     currentLoginUserEmail &&
-    loginUserData?.following.includes((post?.user as TUser)._id);
+    loginUserData?.following.includes(createdUserData._id);
+  const userProfileLink =
+    currentLoginUserEmail === createdUserData?.email
+      ? `/profile`
+      : `/users/${createdUserData?._id}`;
 
   const {
     mutate: handleDeletePost,
@@ -172,7 +176,7 @@ export default function NewsFeedHeader({
                 />
               </div>
               <div className="flex items-center space-x-2">
-                <Link href={`/user/${createdUserData?._id}`}>
+                <Link href={userProfileLink}>
                   <h4 className="text-lg font-bold">{createdUserData?.name}</h4>
                 </Link>
                 {/* Verified Tag */}
@@ -240,6 +244,7 @@ export default function NewsFeedHeader({
             {/* News Feed Action Button */}
 
             <div className="flex items-center space-x-3">
+              {/* News feed add to favourite button */}
               <div>
                 {loginUserData ? (
                   <>
@@ -265,6 +270,7 @@ export default function NewsFeedHeader({
                   </LoginConfirmationModal>
                 )}
               </div>
+              {/* News Feed Dropdown button */}
               {createdUserData?.email === currentLoginUserEmail && (
                 <Dropdown
                   className="absolute right-[7rem]"
@@ -305,7 +311,8 @@ export default function NewsFeedHeader({
         </div>
 
         {/* Action Header */}
-        <PostCommentsModal post={post}>
+        {/* <PostCommentsModal post={post}> */}
+        <Link href={`/posts/${post?._id}`}>
           <div className="hover:bg-gray-100 rounded-lg duration-200 px-3 pb-3">
             <div className="flex items-end cursor-pointer hover:underline w-fit ">
               <h3 className="font-semibold text-lg text-gray-800">
@@ -331,7 +338,8 @@ export default function NewsFeedHeader({
           /> */}
             {post?.description}
           </div>
-        </PostCommentsModal>
+        </Link>
+        {/* </PostCommentsModal> */}
       </div>
     </div>
   );

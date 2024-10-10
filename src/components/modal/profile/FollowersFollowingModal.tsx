@@ -63,7 +63,7 @@ const FollowersFollowingModal = ({ title, children, users }: TProps) => {
                     </div>
                     <div className="ml-6">
                       <Link
-                        href={`/user/${user?._id}`}
+                        href={`/users/${user?._id}`}
                         className="hover:underline"
                       >
                         {user?.name}

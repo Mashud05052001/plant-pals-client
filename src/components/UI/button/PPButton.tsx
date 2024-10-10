@@ -8,6 +8,7 @@ type TProps = {
   variant?: "solid" | "shadow" | "ghost";
   size?: "sm" | "md" | "lg";
   radius?: "none" | "sm" | "md" | "lg" | "full";
+  color?: "success" | "warning" | "danger" | "primary" | "secondary";
   isLoading?: boolean;
   isDisabled?: boolean;
   fullWidth?: boolean;
@@ -17,6 +18,7 @@ type TProps = {
 };
 
 export default function PPButton({
+  color = "success",
   buttonText = "Submit",
   buttonType = "submit",
   variant = "solid",
@@ -31,7 +33,7 @@ export default function PPButton({
 }: TProps) {
   return (
     <Button
-      color="success"
+      color={color}
       type={buttonType}
       variant={variant}
       size={size}

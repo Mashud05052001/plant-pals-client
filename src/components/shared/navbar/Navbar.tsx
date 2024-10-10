@@ -21,7 +21,20 @@ import Link from "next/link";
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user } = useUserProvider();
-
+  const toggleNavbarDropdown = (
+    <>
+      {user?.role ? (
+        <NavbarDropdown />
+      ) : (
+        <Link
+          href={"/login"}
+          className="p-2 rounded-full duration-100 hover:text-common-600"
+        >
+          <LuLogIn className="size-6 " />
+        </Link>
+      )}
+    </>
+  );
   return (
     <NextUINavbar
       maxWidth="xl"
@@ -70,21 +83,13 @@ export const Navbar = () => {
       >
         <NavbarItem className="hidden md:flex gap-2">
           {/* <ThemeSwitch /> */}
-          {user?.role ? (
-            <NavbarDropdown />
-          ) : (
-            <Link
-              href={"/login"}
-              className="p-2 rounded-full duration-100 hover:text-common-600"
-            >
-              <LuLogIn className="size-6 " />
-            </Link>
-          )}
+          {toggleNavbarDropdown}
         </NavbarItem>
       </NavbarContent>
 
-      <NavbarContent className="md:hidden basis-1 pl-4" justify="end">
+      <NavbarContent className="md:hidden basis-1 pl-4 space-x-2" justify="end">
         {/* <ThemeSwitch /> */}
+        {toggleNavbarDropdown}
         <NavbarMenuToggle />
       </NavbarContent>
 

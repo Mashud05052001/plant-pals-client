@@ -46,6 +46,7 @@ export const followUserService = catchServiceAsync(
     revalidateTag("myInfo");
     revalidateTag("myProfile");
     revalidateTag("myFollow");
+    revalidateTag("singleUser");
     return data;
   }
 );

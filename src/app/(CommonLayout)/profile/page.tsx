@@ -6,6 +6,7 @@ import { getMyProfile } from "@/src/services/user.fetch.service";
 
 export default async function Page() {
   const userData = await getMyProfile();
+
   // const profilePicture = userData?.profilePicture || noProfileImage;
 
   return (

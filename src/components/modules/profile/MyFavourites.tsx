@@ -3,6 +3,8 @@ import { TCategory, TUser } from "@/src/types";
 import PostGallery from "../SignlePost/PostGallery";
 import ProfilePostAction from "../SignlePost/ProfilePostAction";
 import ProfilePostHeader from "../SignlePost/ProfilePostHeader";
+import SinglePostLoadingSkeleton from "../../shekeleton/SinglePostLoadingSkeleton";
+import ProfileFavouritesPostSkeleton from "../../shekeleton/ProfileFavouritesPostSkeleton";
 
 type TProps = {
   postIds: string[];
@@ -16,8 +18,8 @@ export default function MyFavourites({ postIds }: TProps) {
   // Check if postIds is empty before rendering
   if (postIds.length === 0) {
     return (
-      <div>
-        <h2 className="text-2xl font-semibold">
+      <div className="mt-4">
+        <h2 className="text-2xl font-semibold ">
           You do not have any favourite posts yet.
         </h2>
       </div>
@@ -26,7 +28,11 @@ export default function MyFavourites({ postIds }: TProps) {
 
   // Handle loading state
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="px-4">
+        <ProfileFavouritesPostSkeleton />
+      </div>
+    );
   }
 
   // Handle error state
@@ -66,6 +72,7 @@ export default function MyFavourites({ postIds }: TProps) {
                 <PostGallery images={post.images} />
                 {/* Post Actions */}
                 <ProfilePostAction
+                  postId={post?._id}
                   comments={post?.comments as string[]}
                   downvote={post?.downvote}
                   upvote={post?.upvote}

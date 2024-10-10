@@ -25,6 +25,10 @@ export type TUser = {
   createdAt: Date;
   updatedAt: Date;
 };
+export type TAllUser = Pick<
+  TUser,
+  "_id" | "name" | "email" | "profilePicture" | "role" | "isVerified"
+>;
 export type TPlaneUser = Omit<
   TUser,
   "myPosts" | "favouritePosts" | "following" | "followers"

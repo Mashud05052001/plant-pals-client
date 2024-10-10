@@ -10,6 +10,7 @@ export type TJwtUser = {
   name: string;
   email: string;
   role: "USER" | "ADMIN";
+  profilePicture: string;
   iat: number;
   exp: number;
 };

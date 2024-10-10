@@ -1,13 +1,20 @@
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 import { BiSolidDownvote, BiSolidUpvote } from "react-icons/bi";
+import { Button } from "@nextui-org/react";
+import { IoMdShare } from "react-icons/io";
+import { handleCopyToClipboard } from "@/src/utils/copyToClipboard";
+import envConfig from "@/src/config/envConfig";
+import PostCommentsModal from "../../modal/singleModal/PostCommentsModal";
 
 type TProps = {
+  postId: string;
   upvote: number;
   downvote: number;
   comments: string[];
 };
 
 export default function ProfilePostAction({
+  postId,
   comments,
   downvote,
   upvote,
@@ -29,9 +36,22 @@ export default function ProfilePostAction({
       </div>
 
       {/* Comment Count */}
-      <p className="text-gray-500">
-        {comments.length} {comments.length === 1 ? "Comment" : "Comments"}
-      </p>
+      <div className="flex space-x-6 items-center">
+        <PostCommentsModal postId={postId}>
+          <p className="text-gray-500 cursor-pointer hover:underline ">
+            {comments?.length} {comments?.length === 1 ? "Comment" : "Comments"}
+          </p>
+        </PostCommentsModal>
+
+        <Button variant="faded" size="sm" className="border-none">
+          <IoMdShare
+            className="size-6 cursor-pointer"
+            onClick={() => {
+              handleCopyToClipboard(`${envConfig.baseURL}/posts/${postId}`);
+            }}
+          />
+        </Button>
+      </div>
     </div>
   );
 }

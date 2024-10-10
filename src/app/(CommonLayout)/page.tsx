@@ -24,7 +24,8 @@ export default async function Page({
         <div className="mb-8">
           <NewsFeedFilter allCategories={categories} />
         </div>
-        {posts?.data?.length !== 0  ? (
+
+        {posts?.data?.length !== 0 ? (
           <InfiniteNewsFeed
             posts={posts}
             loginUserData={loginUserData}

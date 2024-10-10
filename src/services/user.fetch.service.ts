@@ -1,5 +1,11 @@
 import nexiosInstance from "../lib/nexiosInstance";
-import { TPlaneUser, TSuccess, TUser } from "../types";
+import {
+  TAllUser,
+  TPlaneUser,
+  TSuccess,
+  TSuccessWithMeta,
+  TUser,
+} from "../types";
 
 export const getMyInfos = async () => {
   const response = await nexiosInstance.get("/users/me", {
@@ -28,6 +34,17 @@ export const getMyProfile = async () => {
   return userData;
 };
 
+export const getSingleUser = async (userId: string) => {
+  const response = await nexiosInstance.get(`/users/${userId}`, {
+    next: {
+      tags: ["singleUser"],
+      revalidate: 30,
+    },
+  });
+  const userData = (response?.data as TSuccess<TUser>).data;
+  return userData;
+};
+
 export const getMyPosts = async () => {
   const response = await nexiosInstance.get("/users/me?populate=myPosts", {
     next: {
@@ -51,4 +68,19 @@ export const getMyFollowingFollowers = async () => {
   );
   const userData = (response?.data as TSuccess<TUser>).data;
   return userData;
+};
+
+export const getAllUsersInfo = async () => {
+  const response = await nexiosInstance.get("/users/all", {
+    cache: "no-store",
+    next: {
+      revalidate: 2,
+    },
+    // next: {
+    //   tags: ["allUsers"],
+    //   revalidate: 300,
+    // },
+  });
+  const userData = response.data as TSuccessWithMeta<TAllUser[]>;
+  return userData?.data;
 };

@@ -1,9 +1,10 @@
+"use client";
 import noProfilePicture from "@/src/assets/no-profile.jpg";
 import {
   useDeletePost,
   useManageFavouritePost,
 } from "@/src/hooks/post.mutate.hook";
-import { TUser } from "@/src/types";
+import { TPlaneUser, TUser } from "@/src/types";
 import {
   Dropdown,
   DropdownItem,
@@ -20,6 +21,8 @@ import { IoTrashSharp } from "react-icons/io5";
 import { MdEdit } from "react-icons/md";
 import PartialComponentGlassLoading from "../../shared/loading/PartialCompoentLoading";
 import Link from "next/link";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+import LoginConfirmationModal from "../../modal/singleModal/LoginConfirmationModal";
 
 type TProps = {
   postId: string;
@@ -27,11 +30,14 @@ type TProps = {
   category: string;
   createdAt: Date;
   description: string;
+  type: "myPosts" | "myFavouritePosts" | "otherPosts";
+  // For Favourite post section
   createdUserData?: Pick<
     TUser,
     "_id" | "name" | "email" | "role" | "profilePicture"
   >;
-  type: "myPosts" | "myFavouritePosts";
+  // For Single user section
+  loginUserData?: TPlaneUser | null;
 };
 
 export default function ProfilePostHeader({
@@ -42,6 +48,7 @@ export default function ProfilePostHeader({
   createdAt,
   type,
   createdUserData,
+  loginUserData,
 }: TProps) {
   const [deletedPostId, setDeletedPostId] = useState("");
   const [isFavouriteAdding, setisfavouriteAdding] = useState<boolean>();
@@ -162,26 +169,27 @@ export default function ProfilePostHeader({
             <Divider className="mb-4 mt-3 w-full bg-common-600 h-[1.1px] border-2" />
           </>
         )}
+        <Link href={`/posts/${postId}`}>
+          <div className="hover:bg-gray-100 rounded-lg duration-200 px-3 pb-3">
+            <div className="flex items-end">
+              <h3 className="font-semibold text-lg text-gray-800 ">{title}</h3>
+              <h4 className="pl-1 text-sm pb-0.5"> ({category && category})</h4>
+            </div>
+            <p className="text-sm text-gray-500 mb-3 mt-1">
+              Date: {moment(createdAt).format(`DD-MM-YYYY`)}
+            </p>
 
-        <div>
-          <div className="flex items-end">
-            <h3 className="font-semibold text-lg text-gray-800 ">{title}</h3>
-            <h4 className="pl-1 text-sm pb-0.5"> ({category && category})</h4>
-          </div>
-          <p className="text-sm text-gray-500 mb-3 mt-1">
-            Date: {moment(createdAt).format(`DD-MM-YYYY`)}
-          </p>
-
-          {/* Post Description */}
-          {/* //TODO : Rich text not working */}
-          {/* <div
+            {/* Post Description */}
+            {/* //TODO : Rich text not working */}
+            {/* <div
             className="text-gray-700 mb-4"
             dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(description),
             }}
           /> */}
-          {description}
-        </div>
+            {description}
+          </div>
+        </Link>
       </div>
       {/* My Posts ACtion Button */}
       {type === "myPosts" && (
@@ -221,6 +229,29 @@ export default function ProfilePostHeader({
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
+      )}
+      {type === "otherPosts" && (
+        <div className="ml-10 mt-3 mr-3">
+          {loginUserData ? (
+            <>
+              {loginUserData?.favouritePosts?.includes(postId) ? (
+                <FaHeart
+                  className="size-6 cursor-pointer text-red-600"
+                  onClick={() => handleFavourite(postId, title, "remove")}
+                />
+              ) : (
+                <FaRegHeart
+                  className="size-6 cursor-pointer"
+                  onClick={() => handleFavourite(postId, title, "add")}
+                />
+              )}
+            </>
+          ) : (
+            <LoginConfirmationModal>
+              <FaRegHeart className="size-6 cursor-pointer " />
+            </LoginConfirmationModal>
+          )}
+        </div>
       )}
     </div>
   );

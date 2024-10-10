@@ -14,10 +14,11 @@ import {
   User,
 } from "@nextui-org/react";
 import Link from "next/link";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { IoTrashSharp } from "react-icons/io5";
 import { MdModeEdit } from "react-icons/md";
+import { toast } from "sonner";
 
 const columns = [
   { name: "TITLE", uid: "title" },
@@ -29,20 +30,41 @@ const columns = [
 type ColumnKey = keyof TPost | "actions" | "status";
 
 const UserDashboardPosts = ({ userData }: { userData: TUser }) => {
-  const [xp, setXp] = useState(false);
   const posts = userData?.myPosts as TPost[];
   const [deletedPostId, setDeletedPostId] = useState("");
+  const [loadingId, setLoadingId] = useState<string | number>("");
 
-  const { mutate: handleDeletePost, isLoading: isDeleteLoading } =
-    useDeletePost();
+  const {
+    mutate: handleDeletePost,
+    isLoading,
+    isSuccess,
+    error,
+    isError,
+  } = useDeletePost();
 
   const handleDelete = (postId: string, postTitle: string) => {
     const confirm = window.confirm(`Are you sure to delete ${postTitle} post?`);
     if (confirm) {
+      const loading = toast.loading(`Deleting ${postTitle}...`);
+      setLoadingId(loading);
       handleDeletePost(postId);
       setDeletedPostId(postId);
     }
   };
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Post deleted successfully!", { id: loadingId });
+      setLoadingId("");
+      setDeletedPostId("");
+    }
+    if (isError) {
+      toast.error(`Failed to delete post. ${error?.message}`, {
+        id: loadingId,
+      });
+      setLoadingId("");
+      setDeletedPostId("");
+    }
+  }, [isSuccess, isError]);
 
   const renderCell = useCallback(
     (post: TPost, columnKey: ColumnKey) => {
@@ -77,11 +99,7 @@ const UserDashboardPosts = ({ userData }: { userData: TUser }) => {
             </Chip>
           );
         case "actions":
-          return xp && post?._id === deletedPostId ? (
-            <div className="flex justify-center w-full">
-              <Spinner size="sm" />
-            </div>
-          ) : (
+          return (
             <div className="relative flex items-center gap-4 w-fit mx-auto">
               <Link href={`/posts/${post?._id}`}>
                 <Tooltip content="Details" closeDelay={50}>
@@ -91,7 +109,7 @@ const UserDashboardPosts = ({ userData }: { userData: TUser }) => {
                 </Tooltip>
               </Link>
               <Link
-                href={`/posts/update-post/${post?._id}?redirect=/user/dashboard`}
+                href={`/posts/update-post/${post?._id}?redirect=/user/dashboard/posts`}
               >
                 <Tooltip content="Edit post" closeDelay={50}>
                   <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
@@ -108,11 +126,12 @@ const UserDashboardPosts = ({ userData }: { userData: TUser }) => {
               </Tooltip>
             </div>
           );
+
         default:
           return null;
       }
     },
-    [isDeleteLoading, deletedPostId, xp]
+    [isLoading, deletedPostId]
   );
 
   return (

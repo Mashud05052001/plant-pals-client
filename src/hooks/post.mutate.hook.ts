@@ -47,12 +47,6 @@ export const useDeletePost = () => {
   return useMutation<any, Error, string, unknown>({
     mutationKey: ["DELETE_POST"],
     mutationFn: async (postId: string) => await deletePostService(postId),
-    onSuccess: () => {
-      toast.success("Post deleted successfully");
-    },
-    onError: (error) => {
-      toast.error(`Failed. ${error?.message}`);
-    },
   });
 };
 
