@@ -12,6 +12,7 @@ import { useUserRegister } from "@/src/hooks/auth.mutate.hook";
 import { useUserProvider } from "@/src/context/user.provider";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
+import { FaHome } from "react-icons/fa";
 
 const RegisterPage = () => {
   const { setIsLoading: setUserLoading } = useUserProvider();
@@ -46,9 +47,19 @@ const RegisterPage = () => {
           resolver={zodResolver(registerValidationSchema)}
         >
           <div className="space-y-6 mx-auto w-96 sm:w-8/12 md:w-1/2 lg:w-5/12 rounded-lg border bg-white dark:bg-gray-800 p-7 shadow-lg sm:p-10 border-common-300 dark:border-common-700">
-            <h1 className="text-3xl font-semibold tracking-tight text-common-700 dark:text-common-300">
-              Register
-            </h1>
+            <div className="flex justify-between items-center">
+              <h1 className="text-3xl font-semibold tracking-tight text-common-700 dark:text-common-300">
+                Register
+              </h1>
+              {/* Back to Home Button */}
+              <Link
+                href="/"
+                className="font-semibold flex text-green-700 hover:text-green-600 duration-100"
+              >
+                <FaHome className="size-6 mr-1" />
+                <p className="pt-0.5">Back to Home</p>
+              </Link>
+            </div>
             <PPInput name="name" label="Name" type="text" />
             <PPInput name="email" label="Email" type="email" />
             <PPInput name="password" label="Password" type="password" />

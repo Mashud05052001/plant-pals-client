@@ -13,6 +13,7 @@ import PPButton from "../../UI/button/PPButton";
 import CenterContainer from "../../UI/container/CenterContainer";
 import PPForm from "../../UI/form/PPForm";
 import PPInput from "../../UI/form/PPInput";
+import { FaHome } from "react-icons/fa";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -42,9 +43,19 @@ const LoginPage = () => {
             resolver={zodResolver(loginValidationSchema)}
           >
             <div className="space-y-6">
-              <h1 className="text-3xl font-semibold tracking-tight text-common-700 dark:text-common-300">
-                Login
-              </h1>
+              <div className="flex justify-between items-center">
+                <h1 className="text-3xl font-semibold tracking-tight text-common-700 dark:text-common-300">
+                  Login
+                </h1>
+                {/* Back to Home Button */}
+                <Link
+                  href="/"
+                  className="font-semibold flex text-green-700 hover:text-green-600 duration-100"
+                >
+                  <FaHome className="size-6 mr-1" />
+                  <p className="pt-0.5">Back to Home</p>
+                </Link>
+              </div>
               <PPInput name="email" label="Email" type="email" />
               <PPInput name="password" label="Password" type="password" />
 
