@@ -94,3 +94,11 @@ export type TPayment = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type TDashboardData = {
+  month: string;
+  newUsers: number;
+  newPosts: number;
+  countPayments: number;
+  totalPaymentsCollection: number;
+};

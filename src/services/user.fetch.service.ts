@@ -1,6 +1,8 @@
+import moment from "moment";
 import nexiosInstance from "../lib/nexiosInstance";
 import {
   TAllUser,
+  TDashboardData,
   TPayment,
   TPlaneUser,
   TSuccess,
@@ -93,5 +95,15 @@ export const getAllPaymentsInfo = async () => {
     },
   });
   const userData = response.data as TSuccess<TPayment[]>;
+  return userData?.data;
+};
+
+export const getAdminDashboard = async (year: number) => {
+  const response = await nexiosInstance.get(`/users/dashboard?year=${year}`, {
+    next: {
+      revalidate: 300,
+    },
+  });
+  const userData = response.data as TSuccess<TDashboardData[]>;
   return userData?.data;
 };
