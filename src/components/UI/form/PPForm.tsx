@@ -35,7 +35,7 @@ export default function PPForm({
         className={`${className}`}
         onSubmit={methods.handleSubmit((data) => {
           onSubmit(data);
-          //   methods.reset();
+          methods.reset();
         })}
       >
         {children}

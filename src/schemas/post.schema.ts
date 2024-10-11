@@ -47,3 +47,15 @@ export const updatePostSchema = z
         "At least one of title, category, description, or isPremium must be provided.",
     }
   );
+
+export const sendEmailSchema = z.object({
+  name: z
+    .string({ required_error: requiredMsg })
+    .min(3, { message: "*Name must be at least 3 characters" }),
+  email: z
+    .string({ required_error: requiredMsg })
+    .email({ message: "*Provide valid email" }),
+  message: z
+    .string({ required_error: requiredMsg })
+    .min(3, { message: "*Message must be at least 5 characters" }),
+});

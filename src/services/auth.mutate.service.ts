@@ -100,6 +100,16 @@ export const resetPasswordService = catchServiceAsync<any>(
   }
 );
 
+export const sendContactEmail = catchServiceAsync<any>(
+  async (payload: FieldValues) => {
+    const { data } = await axiosInstance.post(
+      "/auth/send-contact-email",
+      payload
+    );
+    return data;
+  }
+);
+
 /*
 export const loginUserService = async (payload: FieldValues) => {
   try {

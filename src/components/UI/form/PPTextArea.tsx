@@ -18,9 +18,19 @@ export default function PPTextarea({
   return (
     <Controller
       name={name}
-      render={({ field, fieldState: { error } }) => (
+      render={({
+        field: { value, onChange, onBlur },
+        fieldState: { error },
+      }) => (
         <div className="relative">
-          <Textarea {...field} size={size} label={label} variant={variant} />
+          <Textarea
+            value={value || ""}
+            onChange={onChange}
+            onBlur={onBlur}
+            size={size}
+            label={label}
+            variant={variant}
+          />
           {error && (
             <div className="absolute left-1 bottom-[-1.4rem] text-red-500 whitespace-nowrap overflow-hidden text-sm font-medium text-ellipsis">
               <small>{error.message}</small>

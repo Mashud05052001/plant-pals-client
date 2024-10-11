@@ -1,14 +1,17 @@
-import { Component, ReactNode } from "react";
+"use client";
+
+import React, { ReactNode } from "react";
 
 type TErrorBoundaryProps = {
   children: ReactNode;
   fallback: ReactNode;
 };
+
 type TErrorBoundaryState = {
   hasError: boolean;
 };
 
-class ErrorBoundary extends Component<
+class ErrorBoundary extends React.Component<
   TErrorBoundaryProps,
   TErrorBoundaryState
 > {

@@ -32,10 +32,7 @@ const LoginPage = () => {
       router.replace(redirect);
     }
   }, [isSuccess]);
-  const defaultdata = {
-    email: "masudmahi05@gmail.com",
-    password: "123456",
-  };
+
   return (
     <div>
       <CenterContainer className="mx-auto w-96 sm:w-8/12 md:w-1/2 lg:w-5/12 rounded-lg border bg-white p-7 shadow-lg sm:p-10  border-common-300">
@@ -43,7 +40,6 @@ const LoginPage = () => {
           <PPForm
             onSubmit={onSubmit}
             resolver={zodResolver(loginValidationSchema)}
-            defaultValues={defaultdata}
           >
             <div className="space-y-6">
               <h1 className="text-3xl font-semibold tracking-tight text-common-700">

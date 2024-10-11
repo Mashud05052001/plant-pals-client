@@ -8,6 +8,7 @@ import {
   loginUserService,
   registerUserService,
   resetPasswordService,
+  sendContactEmail,
 } from "../services/auth.mutate.service";
 
 export const useUserRegister = () => {
@@ -87,6 +88,17 @@ export const useUserResetPassword = () => {
       toast.success(
         "Password reset successfully. Please login with new password"
       );
+    },
+    onError: (error) => {
+      toast.error(`Failed. ${error?.message}`);
+    },
+  });
+};
+export const useSendContactEmail = () => {
+  return useMutation<any, Error, FieldValues, unknown>({
+    mutationFn: async (payload: FieldValues) => await sendContactEmail(payload),
+    onSuccess: () => {
+      toast.success("Contact email send successfull");
     },
     onError: (error) => {
       toast.error(`Failed. ${error?.message}`);
