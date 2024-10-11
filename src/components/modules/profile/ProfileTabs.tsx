@@ -41,7 +41,10 @@ export default function ProfileTabs({ userData }: TProps) {
           key="create_post"
           title={<p className="px-8 font-medium">Create New Post</p>}
         >
-          <CreateNewPost handleTabChange={handleTabChange} />
+          <CreateNewPost
+            handleTabChange={handleTabChange}
+            isUserVerified={userData?.isVerified || false}
+          />
         </Tab>
       </Tabs>
     </div>

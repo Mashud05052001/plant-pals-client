@@ -5,10 +5,12 @@ import PPSelect, { TSelectOption } from "@/src/components/UI/form/PPSelect";
 import PPTextEditor from "@/src/components/UI/form/PPTextEditor";
 import { useUpdatePost } from "@/src/hooks/post.mutate.hook";
 import { updatePostSchema } from "@/src/schemas/post.schema";
-import { TCategory, TPost } from "@/src/types";
+import { TCategory, TPost, TUser } from "@/src/types";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Switch } from "@nextui-org/switch";
+import { Tooltip } from "@nextui-org/tooltip";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   FieldValues,
   FormProvider,
@@ -22,6 +24,8 @@ type TProps = {
 };
 
 const UpdatePost = ({ categories, prevPostData }: TProps) => {
+  const isUserVerified = (prevPostData?.user as TUser)?.isVerified || false;
+  const [isPremium, setIsPremium] = useState(prevPostData?.isPremium || false);
   const { mutate: handleUpdatePost, isLoading, isSuccess } = useUpdatePost();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -39,14 +43,17 @@ const UpdatePost = ({ categories, prevPostData }: TProps) => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const changedData: Partial<TPost> = {};
     // Check for changed values
-    if (data.title !== prevPostData.title) {
+    if (data.title !== prevPostData?.title) {
       changedData.title = data.title;
     }
-    if (data.category !== (prevPostData.category as TCategory)?._id) {
+    if (data.category !== (prevPostData?.category as TCategory)?._id) {
       changedData.category = data.category;
     }
-    if (data.description !== prevPostData.description) {
+    if (data.description !== prevPostData?.description) {
       changedData.description = data.description;
+    }
+    if (isPremium !== prevPostData?.isPremium) {
+      changedData.isPremium = isPremium;
     }
     handleUpdatePost({
       payload: changedData,
@@ -71,7 +78,7 @@ const UpdatePost = ({ categories, prevPostData }: TProps) => {
   });
 
   return (
-    <div className="container max-w-5xl mx-auto mt-4">
+    <div className="container max-w-3xl mx-auto mt-4 px-10">
       <div className="mb-6">
         <h1 className="text-2xl mb-3 font-bold tracking-wide">Update Post</h1>
         <p>
@@ -80,6 +87,10 @@ const UpdatePost = ({ categories, prevPostData }: TProps) => {
         <p>
           Previous Category :{" "}
           <strong>{(prevPostData?.category as TCategory).name}</strong>
+        </p>
+        <p>
+          Previous Status :{" "}
+          <strong>{prevPostData?.isPremium ? "Premium" : "Non Premium"}</strong>
         </p>
       </div>
       <FormProvider {...methods}>
@@ -100,13 +111,49 @@ const UpdatePost = ({ categories, prevPostData }: TProps) => {
             label="Description"
             className="col-span-1 sm:col-span-2"
           />
+          <Tooltip
+            content={
+              !isUserVerified &&
+              "Non verified user cannot modify premium status"
+            }
+            color={"danger"}
+            placement="top-start"
+            closeDelay={50}
+            isDisabled={isUserVerified}
+          >
+            <div
+              className={`mt-14 lg:mt-16 flex items-center space-x-4 w-fit sm:col-span-2 ${
+                !isUserVerified && "opacity-50"
+              }`}
+            >
+              <p className="font-medium">
+                <strong>Premium Status</strong>
+                <span className="ml-1 text-gray-500 text-sm">
+                  (Only visible to verified users if selected)
+                </span>
+                :
+              </p>
+              <Switch
+                aria-label="Toggle premium status"
+                color="success"
+                defaultSelected={false}
+                isSelected={isPremium}
+                onValueChange={setIsPremium}
+                size="sm"
+                isDisabled={!isUserVerified}
+              />
+            </div>
+          </Tooltip>
 
-          <div className="mt-10 sm:col-span-2 ">
+          <div className="sm:col-span-2 -mt-6">
             <PPButton
               buttonText="Update Post"
               className="mt-8"
               isLoading={isLoading}
-              isDisabled={!methods.formState.isDirty}
+              isDisabled={
+                !methods.formState.isDirty &&
+                prevPostData?.isPremium === isPremium
+              }
             />
           </div>
         </form>

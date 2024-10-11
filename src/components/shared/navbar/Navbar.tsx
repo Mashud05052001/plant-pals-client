@@ -12,15 +12,19 @@ import {
 } from "@nextui-org/navbar";
 import Image from "next/image";
 import NavLink from "../NavLink";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUserProvider } from "@/src/context/user.provider";
 import NavbarDropdown from "./NavbarDropdown";
 import { LuLogIn } from "react-icons/lu";
 import Link from "next/link";
+import { getCurrentUserFromDB } from "@/src/services/auth.mutate.service";
+import { TUser } from "@/src/types";
 
 export const Navbar = () => {
+  const [userInfo, setUserInfo] = useState<TUser | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user } = useUserProvider();
+
   const toggleNavbarDropdown = (
     <>
       {user?.role ? (
@@ -35,6 +39,22 @@ export const Navbar = () => {
       )}
     </>
   );
+
+  useEffect(() => {
+    if (user?.email) {
+      const fetchUserData = async () => {
+        try {
+          const userData = await getCurrentUserFromDB();
+          setUserInfo(userData?.data);
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      };
+      fetchUserData();
+    }
+  }, [user]);
+  const userVerified = userInfo?.isVerified || false;
+  const navItems = siteConfig?.navItems;
   return (
     <NextUINavbar
       maxWidth="xl"
@@ -66,13 +86,20 @@ export const Navbar = () => {
         <NavbarContent>
           <div>
             <ul className="hidden md:flex gap-2 sm:gap-4 justify-start ml-4 mt-3">
-              {siteConfig.navItems.map((item) => (
+              {navItems.map((item) => (
                 <NavbarItem key={item.href}>
                   <NavLink href={item.href} className="px-1 py-1">
                     {item.label}
                   </NavLink>
                 </NavbarItem>
               ))}
+              {userVerified && (
+                <NavbarItem>
+                  <NavLink href="/premium-news-feed" className="px-1 py-1">
+                    Premium News
+                  </NavLink>
+                </NavbarItem>
+              )}
             </ul>
           </div>
         </NavbarContent>
@@ -94,12 +121,12 @@ export const Navbar = () => {
       </NavbarContent>
 
       <NavbarMenu>
-        <div className="flex flex-col space-y-4 mt-3">
-          {siteConfig.navItems.map((item) => (
+        <div className="flex flex-col space-y-2 mt-3">
+          {navItems?.map((item) => (
             <NavLink
               key={item.href}
               href={item.href}
-              className="pl-4 py-1 w-32 hover:bg-common-50 rounded-sm duration-150"
+              className="pl-4 py-2 rounded-md w-52 hover:bg-common-50  duration-150"
             >
               <button
                 onClick={() => {
@@ -110,6 +137,20 @@ export const Navbar = () => {
               </button>
             </NavLink>
           ))}
+          {userVerified && (
+            <NavLink
+              href={"/premium-news-feed"}
+              className="pl-4 py-2 rounded-md w-52 hover:bg-common-50  duration-150"
+            >
+              <button
+                onClick={() => {
+                  setIsMenuOpen(false);
+                }}
+              >
+                Premium News
+              </button>
+            </NavLink>
+          )}
         </div>
       </NavbarMenu>
     </NextUINavbar>

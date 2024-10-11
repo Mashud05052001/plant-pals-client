@@ -4,32 +4,29 @@ import {
   useDeletePost,
   useManageFavouritePost,
 } from "@/src/hooks/post.mutate.hook";
-import { TPlaneUser, TUser } from "@/src/types";
+import { TCategory, TPlaneUser, TPost, TUser } from "@/src/types";
 import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
 } from "@nextui-org/dropdown";
-import { Button, Divider } from "@nextui-org/react";
+import { Button, Divider, Tooltip } from "@nextui-org/react";
 import moment from "moment";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { FcLike } from "react-icons/fc";
 import { HiDotsVertical } from "react-icons/hi";
 import { IoTrashSharp } from "react-icons/io5";
-import { MdEdit } from "react-icons/md";
-import PartialComponentGlassLoading from "../../shared/loading/PartialCompoentLoading";
-import Link from "next/link";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { MdEdit, MdOutlineWorkspacePremium } from "react-icons/md";
 import LoginConfirmationModal from "../../modal/singleModal/LoginConfirmationModal";
+import PartialComponentGlassLoading from "../../shared/loading/PartialCompoentLoading";
+import PremiumLogo from "../../shared/PremiumLogo";
 
 type TProps = {
-  postId: string;
-  title: string;
-  category: string;
-  createdAt: Date;
-  description: string;
+  post: TPost;
   type: "myPosts" | "myFavouritePosts" | "otherPosts";
   // For Favourite post section
   createdUserData?: Pick<
@@ -38,18 +35,22 @@ type TProps = {
   >;
   // For Single user section
   loginUserData?: TPlaneUser | null;
+  userId?: string;
 };
 
 export default function ProfilePostHeader({
-  postId,
-  title,
-  category,
-  description,
-  createdAt,
+  post,
   type,
   createdUserData,
   loginUserData,
+  userId,
 }: TProps) {
+  const postId = post?._id,
+    title = post?.title,
+    category = (post?.category as TCategory).name,
+    description = post?.description || "",
+    createdAt = post?.createdAt;
+
   const [deletedPostId, setDeletedPostId] = useState("");
   const [isFavouriteAdding, setisfavouriteAdding] = useState<boolean>();
   const [favouritePostId, setFavouritePostId] = useState("");
@@ -174,6 +175,7 @@ export default function ProfilePostHeader({
             <div className="flex items-end">
               <h3 className="font-semibold text-lg text-gray-800 ">{title}</h3>
               <h4 className="pl-1 text-sm pb-0.5"> ({category && category})</h4>
+              {post?.isPremium && <PremiumLogo />}
             </div>
             <p className="text-sm text-gray-500 mb-3 mt-1">
               Date: {moment(createdAt).format(`DD-MM-YYYY`)}
@@ -247,7 +249,9 @@ export default function ProfilePostHeader({
               )}
             </>
           ) : (
-            <LoginConfirmationModal>
+            <LoginConfirmationModal
+              redirect={`${userId ? `/users/${userId}` : "/"}`}
+            >
               <FaRegHeart className="size-6 cursor-pointer " />
             </LoginConfirmationModal>
           )}

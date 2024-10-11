@@ -56,7 +56,6 @@ export type TPost = {
   voatingUsers: TVoatingUsers[];
   comments: string[] | TUser[];
   isPremium: boolean;
-  isVerified: boolean;
   createdAt: Date;
   updatedAt: Date;
 };
@@ -83,4 +82,15 @@ export type TComment = {
 export type TFollowSuccessData = {
   followed: boolean;
   message: string;
+};
+
+export type TPayment = {
+  _id: string;
+  user: TUser;
+  amount: number;
+  userPhone: string;
+  isPaid: boolean;
+  transactionId: string;
+  createdAt: string;
+  updatedAt: string;
 };

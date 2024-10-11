@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getCurrentUser } from "./services/auth.mutate.service";
+import {
+  getCurrentUser,
+  getCurrentUserFromDB,
+} from "./services/auth.mutate.service";
 
 const authRoutes = ["/login", "/register"];
 const roleBasedRoutes = {
@@ -10,6 +13,7 @@ const roleBasedRoutes = {
   ],
   ADMIN: ["^/admin(/.*)?$", "^/profile(/.*)?$", "^/posts/update-post/[^/]+$"],
 };
+const verifiedUserRoutes = ["/premium-news-feed"];
 
 export async function middleware(request: NextRequest) {
   const user = await getCurrentUser();
@@ -36,6 +40,12 @@ export async function middleware(request: NextRequest) {
       return NextResponse.next();
     }
   }
+  if (userRole && verifiedUserRoutes.includes(pathname)) {
+    const userFullData = await getCurrentUserFromDB();
+    if (userFullData?.data?.isVerified) {
+      return NextResponse.next();
+    }
+  }
   return NextResponse.redirect(new URL("/", request.url));
 }
 
@@ -47,5 +57,6 @@ export const config = {
     "/admin/:path*",
     "/user/:path*",
     "/posts/update-post/:path*",
+    "/premium-news-feed",
   ],
 };

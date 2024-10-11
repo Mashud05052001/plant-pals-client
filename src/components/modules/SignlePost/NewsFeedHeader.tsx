@@ -1,8 +1,10 @@
 import noProfilePicture from "@/src/assets/no-profile.jpg";
+import verified from "@/src/assets/verified.png";
 import {
   useDeletePost,
   useManageFavouritePost,
 } from "@/src/hooks/post.mutate.hook";
+import { useFollowUser } from "@/src/hooks/user.mutate.hook";
 import { TCategory, TPlaneUser, TPost, TUser } from "@/src/types";
 import {
   Dropdown,
@@ -11,20 +13,18 @@ import {
   DropdownTrigger,
 } from "@nextui-org/dropdown";
 import { Button, Divider } from "@nextui-org/react";
+import { Tooltip } from "@nextui-org/tooltip";
 import moment from "moment";
 import Image from "next/image";
+import Link from "next/link";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { HiDotsVertical } from "react-icons/hi";
 import { IoTrashSharp } from "react-icons/io5";
+import { MdEdit } from "react-icons/md";
 import LoginConfirmationModal from "../../modal/singleModal/LoginConfirmationModal";
 import PartialComponentGlassLoading from "../../shared/loading/PartialCompoentLoading";
-import verified from "@/src/assets/verified.png";
-import Link from "next/link";
-import { Tooltip } from "@nextui-org/tooltip";
-import { useFollowUser } from "@/src/hooks/user.mutate.hook";
-import PostCommentsModal from "../../modal/singleModal/PostCommentsModal";
-import { MdEdit } from "react-icons/md";
+import PremiumLogo from "../../shared/PremiumLogo";
 
 type TProps = {
   post: TPost;
@@ -314,7 +314,7 @@ export default function NewsFeedHeader({
         {/* <PostCommentsModal post={post}> */}
         <Link href={`/posts/${post?._id}`}>
           <div className="hover:bg-gray-100 rounded-lg duration-200 px-3 pb-3">
-            <div className="flex items-end cursor-pointer hover:underline w-fit ">
+            <div className="flex items-end cursor-pointer w-fit ">
               <h3 className="font-semibold text-lg text-gray-800">
                 {post?.title}
               </h3>
@@ -322,6 +322,7 @@ export default function NewsFeedHeader({
                 {" "}
                 ({postCategory && postCategory})
               </h4>
+              {post?.isPremium && <PremiumLogo />}
             </div>
 
             <p className="text-sm text-gray-500 mb-3 mt-1">
@@ -336,7 +337,7 @@ export default function NewsFeedHeader({
               __html: DOMPurify.sanitize(description),
             }}
           /> */}
-            {post?.description}
+            <p>{post?.description}</p>
           </div>
         </Link>
         {/* </PostCommentsModal> */}

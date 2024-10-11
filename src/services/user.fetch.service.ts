@@ -1,6 +1,7 @@
 import nexiosInstance from "../lib/nexiosInstance";
 import {
   TAllUser,
+  TPayment,
   TPlaneUser,
   TSuccess,
   TSuccessWithMeta,
@@ -82,5 +83,15 @@ export const getAllUsersInfo = async () => {
     // },
   });
   const userData = response.data as TSuccessWithMeta<TAllUser[]>;
+  return userData?.data;
+};
+
+export const getAllPaymentsInfo = async () => {
+  const response = await nexiosInstance.get("/payment", {
+    next: {
+      revalidate: 30,
+    },
+  });
+  const userData = response.data as TSuccess<TPayment[]>;
   return userData?.data;
 };

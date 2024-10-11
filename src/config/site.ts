@@ -22,5 +22,6 @@ export const siteConfig = {
       href: "/gallery",
     },
   ],
+
   links: {},
 };

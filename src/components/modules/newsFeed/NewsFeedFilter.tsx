@@ -28,7 +28,7 @@ const NewsFeedFilter = ({ allCategories }: { allCategories: TCategory[] }) => {
   }, [debounceKeyword, selectedCategory, router]);
   useEffect(() => {}, [selectedCategory, debounceKeyword]);
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 gap-y-6 md:gap-y-0">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 gap-y-6 sm:gap-y-0">
       <div>
         <Input
           classNames={{

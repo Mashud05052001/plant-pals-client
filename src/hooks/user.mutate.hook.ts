@@ -3,6 +3,7 @@ import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 import {
   changeUserRoleService,
+  createPayment,
   deleteUserService,
   followUserService,
   updateMeService,
@@ -85,6 +86,25 @@ export const useDeleteUser = () => {
     },
     onError: (error) => {
       toast.error(`Failed to delete user. ${error?.message}`);
+    },
+  });
+};
+
+export const useCreatePayment = () => {
+  return useMutation<
+    any,
+    Error,
+    {
+      customerPhone: string;
+      cancleUrl: string;
+      totalAmount: number;
+    },
+    unknown
+  >({
+    mutationKey: ["CREATE_PAYMENT"],
+    mutationFn: async (payload) => await createPayment(payload),
+    onError: (error) => {
+      toast.error(`Payment initiating failed. ${error?.message}`);
     },
   });
 };

@@ -12,12 +12,16 @@ import PPInput from "../../UI/form/PPInput";
 import PPSelect, { TSelectOption } from "../../UI/form/PPSelect";
 import PPTextEditor from "../../UI/form/PPTextEditor";
 import PostImagesHandle from "./PostImagesHandle";
+import { Switch } from "@nextui-org/switch";
+import { Tooltip } from "@nextui-org/tooltip";
 
 type TProps = {
   handleTabChange: (tabKey: "posts" | "favourites" | "create_post") => void;
+  isUserVerified: boolean;
 };
 
-const CreateNewPost = ({ handleTabChange }: TProps) => {
+const CreateNewPost = ({ handleTabChange, isUserVerified }: TProps) => {
+  const [isPremium, setIsPremium] = useState(false);
   const [imageSelectError, setImageSelectError] = useState(false);
   const [imagesFile, setImagesFile] = useState<TImagesFile[]>([]);
   const [imagesPreview, setImagesPreview] = useState<TImagesPreview[]>([]);
@@ -45,9 +49,13 @@ const CreateNewPost = ({ handleTabChange }: TProps) => {
       return;
     }
     setImageSelectError(false);
+    const postData = {
+      ...data,
+      isPremium: isPremium,
+    };
     const images = imagesFile.map((item) => item.file);
     const formData = new FormData();
-    formData.append("data", JSON.stringify(data));
+    formData.append("data", JSON.stringify(postData));
     for (const image of images) {
       formData.append("images", image);
     }
@@ -62,7 +70,7 @@ const CreateNewPost = ({ handleTabChange }: TProps) => {
   }, [isSuccess]);
 
   return (
-    <div className="container max-w-5xl mx-auto mt-6">
+    <div className="container max-w-5xl mt-6 ">
       <h1 className="text-xl mb-6 font-bold tracking-wide">Create New Post</h1>
       <PPForm
         onSubmit={onSubmit}
@@ -77,14 +85,44 @@ const CreateNewPost = ({ handleTabChange }: TProps) => {
           options={categoriesOptions}
           isDisabled={categoriesLoading}
         />
-
         <PPTextEditor
           name="description"
           label="Description"
           className="col-span-1 sm:col-span-2"
         />
-
-        <div className="mt-16 sm:col-span-2 ">
+        <Tooltip
+          content={
+            !isUserVerified && "Non verified user cannot create premium post"
+          }
+          color={"danger"}
+          placement="top-start"
+          closeDelay={50}
+          isDisabled={isUserVerified}
+        >
+          <div
+            className={`mt-14 lg:mt-10 flex items-center space-x-4 w-fit  sm:col-span-2 ${
+              !isUserVerified && "opacity-50"
+            }`}
+          >
+            <p className="font-medium">
+              <strong>Premium Status</strong>
+              <span className="ml-1 text-gray-500 text-sm">
+                (Only visible to verified users if selected)
+              </span>
+              :
+            </p>
+            <Switch
+              aria-label="Toggle premium status"
+              color="success"
+              defaultSelected={false}
+              isSelected={isPremium}
+              onValueChange={setIsPremium}
+              size="sm"
+              isDisabled={!isUserVerified}
+            />
+          </div>
+        </Tooltip>
+        <div className="mt-4 sm:col-span-2 ">
           <PostImagesHandle
             imagesFile={imagesFile}
             imagesPreview={imagesPreview}

@@ -10,7 +10,7 @@ export default async function Page() {
   // const profilePicture = userData?.profilePicture || noProfileImage;
 
   return (
-    <div>
+    <div className="px-5">
       <ProfileHeader userData={userData} />
       <div className="mt-6">
         <ProfileTabs userData={userData} />

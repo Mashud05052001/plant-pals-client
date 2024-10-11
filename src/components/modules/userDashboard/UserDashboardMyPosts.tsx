@@ -3,7 +3,6 @@ import { useDeletePost } from "@/src/hooks/post.mutate.hook";
 import { TCategory, TPost, TUser } from "@/src/types";
 import {
   Chip,
-  Spinner,
   Table,
   TableBody,
   TableCell,
@@ -91,11 +90,11 @@ const UserDashboardPosts = ({ userData }: { userData: TUser }) => {
           return (
             <Chip
               className="capitalize"
-              color={post?.isVerified ? "success" : "warning"}
+              color={post?.isPremium ? "success" : "warning"}
               size="sm"
               variant="flat"
             >
-              {post?.isVerified ? "Verified" : "Not-Verified"}
+              {post?.isPremium ? "Premium" : "Non-Premium"}
             </Chip>
           );
         case "actions":

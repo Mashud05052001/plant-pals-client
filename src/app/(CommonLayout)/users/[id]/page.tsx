@@ -28,13 +28,10 @@ export default async function Page({ params }: TProps) {
                 <div className="bg-white  relative shadow-md rounded-lg p-4 mb-6 max-w-xl mx-auto">
                   {/* User Info */}
                   <ProfilePostHeader
+                    post={post}
                     type={"otherPosts"}
-                    postId={post?._id}
-                    title={post?.title}
-                    description={post?.description}
-                    createdAt={post?.createdAt}
-                    category={(post?.category as TCategory)?.name}
                     loginUserData={loginUserData}
+                    userId={userData?._id}
                   />
                   {/* Post Images */}
                   <PostGallery images={post.images} />

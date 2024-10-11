@@ -3,9 +3,15 @@
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
 import axiosInstance from "../lib/axiosInstance";
-import { TJwtUser, TLoginRegisterUserSuccessData, TSuccess } from "../types";
+import {
+  TJwtUser,
+  TLoginRegisterUserSuccessData,
+  TSuccess,
+  TUser,
+} from "../types";
 import catchServiceAsync from "../utils/servicesCatchAsync";
 import { jwtDecode } from "jwt-decode";
+import nexiosInstance from "../lib/nexiosInstance";
 
 export const registerUserService = catchServiceAsync(
   async (payload: FieldValues) => {
@@ -41,6 +47,16 @@ export const getCurrentUser = async () => {
   let decodedData: null | TJwtUser = null;
   if (accessToken) decodedData = await jwtDecode(accessToken);
   return decodedData;
+};
+
+export const getCurrentUserFromDB = async () => {
+  const response = await nexiosInstance.get("/users/me", {
+    next: {
+      tags: ["login-user-static-info"],
+    },
+  });
+  const data = (await response?.data) as TSuccess<TUser>;
+  return data;
 };
 
 export const getAccessToken = async () => {

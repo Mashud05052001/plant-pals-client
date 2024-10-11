@@ -70,7 +70,7 @@ const LoginPage = () => {
               />
             </div>
           </PPForm>
-          <p className="text-center text-sm text-zinc-700 dark:text-zinc-300">
+          <p className="text-center text-sm text-zinc-700 dark:text-zinc-300 mt-6">
             Don&apos;t have an account?
             <Link
               href={

@@ -9,7 +9,7 @@ export default async function Page({
 }: {
   searchParams: Record<string, string>;
 }) {
-  const isPremiumContent = false;
+  const isPremiumContent = true;
 
   const posts = await getNewsFeed(
     1,

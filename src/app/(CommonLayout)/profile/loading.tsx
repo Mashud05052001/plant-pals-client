@@ -4,7 +4,7 @@ import ProfileTabsSkeleton from "@/src/components/shekeleton/ProfileTabsSkeleton
 
 export default function Loading() {
   return (
-    <div>
+    <div className="px-5">
       <ProfileHeaderSkeleton />
       <ProfileTabsSkeleton />
       <div className="mt-6">

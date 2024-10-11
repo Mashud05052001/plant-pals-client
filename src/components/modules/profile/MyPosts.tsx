@@ -17,14 +17,7 @@ const MyPosts = ({ posts }: TProps) => {
             <div key={post?._id}>
               <div className="bg-white  relative shadow-md rounded-lg p-4 mb-6 max-w-xl mx-auto">
                 {/* User Info */}
-                <ProfilePostHeader
-                  type={"myPosts"}
-                  postId={post?._id}
-                  title={post?.title}
-                  description={post?.description}
-                  createdAt={post?.createdAt}
-                  category={(post?.category as TCategory).name}
-                />
+                <ProfilePostHeader post={post} type={"myPosts"} />
                 {/* Post Images */}
                 <PostGallery images={post.images} />
                 {/* Post Actions */}

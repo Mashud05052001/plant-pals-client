@@ -1,15 +1,18 @@
 import noProfileImage from "@/src/assets/no-profile.jpg";
-import { TUser } from "@/src/types";
+import verified from "@/src/assets/verified.png";
+import envConfig from "@/src/config/envConfig";
+import { TPost, TUser } from "@/src/types";
+import { Tooltip } from "@nextui-org/tooltip";
 import Image from "next/image";
 import { FaEdit } from "react-icons/fa";
 import { MdModeEditOutline, MdPassword } from "react-icons/md";
+import ChangePasswordModel from "../../modal/profile/ChangePasswordModal";
 import EditProfileModel from "../../modal/profile/EditProfileModal";
 import EditProfilePictureModel from "../../modal/profile/EditProfilePictureModal";
 import FollowersFollowingModal from "../../modal/profile/FollowersFollowingModal";
-import ChangePasswordModel from "../../modal/profile/ChangePasswordModal";
-import verified from "@/src/assets/verified.png";
-import envConfig from "@/src/config/envConfig";
+import LoginConfirmationModal from "../../modal/singleModal/LoginConfirmationModal";
 import RandomPersonProfileFollow from "./RandomPersonProfileFollow";
+import VerifiedMeModal from "../../modal/profile/VerifiedMeModal";
 
 type TProps = {
   userData: TUser;
@@ -25,6 +28,10 @@ const ProfileHeader = ({
 }: TProps) => {
   const profilePicture =
     userData?.profilePicture || envConfig?.noProfilePic || noProfileImage;
+  let totalUpvoteofUser = 0;
+  (userData?.myPosts as TPost[]).forEach(
+    (post) => (totalUpvoteofUser += Number(post?.upvote) || 0)
+  );
 
   return (
     <div className="flex gap-x-10 flex-col md:flex-row space-y-4 items-center select-none">
@@ -51,12 +58,12 @@ const ProfileHeader = ({
       <div className="space-y-4">
         <div className="space-y-1 flex flex-col md:flex-row items-center md:items-end md:space-x-12 justify-center">
           <div className="relative">
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-3 relative ">
               <div className="flex items-end">
                 <h2 className="text-3xl font-semibold">{userData.name}</h2>
                 <p className="text-sm pl-1 mb-1">_{userData?.role}</p>
               </div>
-              {userData.isVerified && (
+              {userData?.isVerified && (
                 <div>
                   <Image
                     src={verified}
@@ -65,6 +72,13 @@ const ProfileHeader = ({
                     width={28}
                   />
                 </div>
+              )}
+              {userData?.isVerified || (
+                <VerifiedMeModal totalUpvoteofUser={totalUpvoteofUser}>
+                  <p className="text-sm px-3 py-0.5 border-2 absolute w-24 flex justify-center -top-3 rounded-md hover:bg-gray-200 duration-150 hover:font-medium">
+                    Verify Me
+                  </p>
+                </VerifiedMeModal>
               )}
             </div>
             <h4 className="font-medium text-center md:text-left mb-3">
@@ -76,7 +90,7 @@ const ProfileHeader = ({
           </div>
           <div className="space-y-2">
             {isMyInformation && (
-              <>
+              <div>
                 <div className="flex space-x-4">
                   <EditProfileModel userData={userData}>
                     <div className="flex items-center space-x-1 hover:text-green-600 duration-100">
@@ -91,15 +105,27 @@ const ProfileHeader = ({
                     </div>
                   </ChangePasswordModel>
                 </div>
-              </>
+              </div>
             )}
             <div className="flex flex-col space-y-2">
-              {!isMyInformation && (
-                <RandomPersonProfileFollow
-                  profileUserId={userData?._id}
-                  loginUserData={loginUserData as TUser}
-                  profileUserName={userData?.name}
-                />
+              {!isMyInformation ? (
+                loginUserData !== null ? (
+                  <RandomPersonProfileFollow
+                    profileUserId={userData?._id}
+                    loginUserData={loginUserData as TUser}
+                    profileUserName={userData?.name}
+                  />
+                ) : (
+                  <LoginConfirmationModal redirect={`/users/${userData?._id}`}>
+                    <Tooltip content="Login to access follow" closeDelay={50}>
+                      <p className="bg-blue-500 text-white px-3 pt-1.5 rounded-lg font-semibold cursor-pointer text-xs h-7 w-fit">
+                        Follow
+                      </p>
+                    </Tooltip>
+                  </LoginConfirmationModal>
+                )
+              ) : (
+                <></>
               )}
               <div className="flex space-x-8">
                 <p>{userData?.myPosts.length} Posts</p>

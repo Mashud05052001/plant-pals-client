@@ -56,3 +56,16 @@ export const deleteUserService = catchServiceAsync(async (userId: string) => {
   const data = res.data as TSuccess<any>;
   return data;
 });
+
+export const createPayment = catchServiceAsync(
+  async (payload: {
+    customerPhone: string;
+    cancleUrl: string;
+    totalAmount: number;
+  }) => {
+    const res = await axiosInstance.post(`/payment`, payload);
+    revalidateTag("login-user-static-info");
+    const data = res.data as TSuccess<any>;
+    return data;
+  }
+);

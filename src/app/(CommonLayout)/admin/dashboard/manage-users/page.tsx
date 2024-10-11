@@ -7,7 +7,7 @@ import {
   useChangeUserRole,
   useGetAllUsersForAdmin,
 } from "@/src/hooks/user.mutate.hook"; // Create a hook for changing user roles
-import { TAllUser, TJwtUser } from "@/src/types";
+import { TAllUser } from "@/src/types";
 import {
   Button,
   Chip,
@@ -23,7 +23,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback } from "react";
-import { FaLongArrowAltUp, FaLongArrowAltDown } from "react-icons/fa";
+import { FaLongArrowAltDown, FaLongArrowAltUp } from "react-icons/fa";
 
 const columns = [
   { name: "NAME", uid: "name" },

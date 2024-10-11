@@ -99,7 +99,7 @@ export default function SinglePostHeader({ post, loginUserData }: TProps) {
       handleFollowingUser(userId);
     }
   };
-
+  console.log(loginUserData);
   useEffect(() => {
     setTimeout(() => {
       setDeletedPostId("");

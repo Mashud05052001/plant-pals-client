@@ -3,7 +3,6 @@ import { TCategory, TUser } from "@/src/types";
 import PostGallery from "../SignlePost/PostGallery";
 import ProfilePostAction from "../SignlePost/ProfilePostAction";
 import ProfilePostHeader from "../SignlePost/ProfilePostHeader";
-import SinglePostLoadingSkeleton from "../../shekeleton/SinglePostLoadingSkeleton";
 import ProfileFavouritesPostSkeleton from "../../shekeleton/ProfileFavouritesPostSkeleton";
 
 type TProps = {
@@ -50,8 +49,8 @@ export default function MyFavourites({ postIds }: TProps) {
               <div className="bg-white shadow-md rounded-lg p-4 mb-6 max-w-xl mx-auto relative">
                 {/* User Info */}
                 <ProfilePostHeader
+                  post={post}
                   type="myFavouritePosts"
-                  postId={post?._id}
                   createdUserData={
                     post.user as Pick<
                       TUser,
@@ -63,10 +62,6 @@ export default function MyFavourites({ postIds }: TProps) {
                       | "favouritePosts"
                     >
                   }
-                  title={post?.title}
-                  category={(post?.category as TCategory).name}
-                  description={post?.description}
-                  createdAt={post?.createdAt}
                 />
                 {/* Post Images */}
                 <PostGallery images={post.images} />

@@ -1,14 +1,15 @@
 "use client";
-import { useState } from "react";
-import ModalContainer from "../ModalContainer"; // Adjust the path as necessary
-import PPButton from "../../UI/button/PPButton"; // Adjust the path as necessary
 import Link from "next/link";
+import { useState } from "react";
+import PPButton from "../../UI/button/PPButton";
+import ModalContainer from "../ModalContainer";
 
 type TProps = {
   children: React.ReactNode;
+  redirect?: string;
 };
 
-const LoginConfirmationModal = ({ children }: TProps) => {
+const LoginConfirmationModal = ({ children, redirect = "/" }: TProps) => {
   const [openModal, setOpenModal] = useState(false);
 
   return (
@@ -41,7 +42,7 @@ const LoginConfirmationModal = ({ children }: TProps) => {
             >
               Later
             </button>
-            <Link href={"/login"}>
+            <Link href={`/login?redirect=${redirect}`}>
               <PPButton
                 buttonText="Log In Now"
                 variant="solid"

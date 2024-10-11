@@ -1,7 +1,7 @@
 import TableSkeleton from "@/src/components/shekeleton/TableSkeleton";
 
-const LoadingDashboard = () => {
+const Loading = () => {
   return <TableSkeleton />;
 };
 
-export default LoadingDashboard;
+export default Loading;
