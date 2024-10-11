@@ -14,6 +14,7 @@ type TProps = {
   type: "email" | "password" | "text";
   variant?: "flat" | "bordered" | "underlined" | "faded";
   size?: "sm" | "md" | "lg";
+  className?: string;
 };
 
 export default function PPInput({
@@ -22,6 +23,7 @@ export default function PPInput({
   type,
   variant = "underlined",
   size = "md",
+  className,
 }: TProps) {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -37,7 +39,7 @@ export default function PPInput({
           label={label}
           variant={variant}
           type={isVisible ? "text" : "password"}
-          className=""
+          className={`${className}`}
           endContent={
             <button
               className="focus:outline-none"

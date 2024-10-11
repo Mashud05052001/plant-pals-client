@@ -1,8 +1,9 @@
 import axios from "axios";
 import { getAccessToken } from "../services/auth.mutate.service";
+import envConfig from "../config/envConfig";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:5000/api/v1",
+  baseURL: envConfig.baseAPI,
 });
 
 axiosInstance.interceptors.request.use(

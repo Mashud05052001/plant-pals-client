@@ -78,7 +78,7 @@ const UpdatePost = ({ categories, prevPostData }: TProps) => {
   });
 
   return (
-    <div className="container max-w-3xl mx-auto mt-4 px-10">
+    <div className="container max-w-4xl mx-auto px-10 py-8 rounded-lg dark:bg-gray-800">
       <div className="mb-6">
         <h1 className="text-2xl mb-3 font-bold tracking-wide">Update Post</h1>
         <p>

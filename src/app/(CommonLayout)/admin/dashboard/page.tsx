@@ -15,7 +15,7 @@ const Page = async ({
 
   return (
     <div>
-      <div className="space-y-8 mt-6">
+      <div className="space-y-8 mt-6 max-w-6xl mx-auto">
         <div>
           <DashboardSelectYear year={year} />
         </div>

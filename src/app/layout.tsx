@@ -31,9 +31,9 @@ export default function RootLayout({
     <html suppressHydrationWarning lang="en">
       <head />
       <body
-        className={`min-h-screen bg-background font-sans antialiased ${fontSans.variable}`}
+        className={`min-h-screen bg-background  font-sans antialiased ${fontSans.variable} dark:bg-gray-950`}
       >
-        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
+        <Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
           {children}
         </Providers>
       </body>

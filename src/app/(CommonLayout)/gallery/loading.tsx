@@ -1,4 +1,4 @@
-import modules from "./gallery.module.css";
+// import modules from "./gallery.module.css";
 
 export default function Loading() {
   const getRandomHeightClass = () => {
@@ -6,14 +6,15 @@ export default function Loading() {
     return heights[Math.floor(Math.random() * heights.length)];
   };
   return (
-    <div className={` ${modules.skeletonBox}`}>
+    // <div className={` ${modules.skeletonBox}`}>
+    <div className="skeletonBox">
       {/* Display 8 skeleton blocks while loading */}
       {Array.from({ length: 15 }).map((_, idx) => (
         <div
           key={idx}
           className={` w-full 
                 ${getRandomHeightClass()}            
-            bg-gray-300 rounded-md animate-pulse my-4`}
+            bg-gray-300 dark:bg-gray-700 rounded-md animate-pulse my-4`}
         />
       ))}
     </div>

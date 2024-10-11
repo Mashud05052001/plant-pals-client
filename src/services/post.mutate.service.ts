@@ -13,6 +13,7 @@ export const createPostService = catchServiceAsync(
     revalidateTag("myProfile");
     revalidateTag("myPosts");
     revalidateTag("myInfo");
+    revalidateTag("galleryPhotos");
     const data = res.data as TSuccess<TPost>;
     return data;
   }

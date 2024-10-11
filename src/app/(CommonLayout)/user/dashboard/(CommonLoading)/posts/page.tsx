@@ -6,7 +6,7 @@ const Page = async () => {
   const userData = await getMyPosts();
 
   return (
-    <div className="min-h-screen flex flex-col  px-4 bg-gray-50">
+    <div className="min-h-screen flex flex-col  px-4 ">
       {userData?.myPosts && userData?.myPosts.length === 0 ? (
         <div className="text-center space-y-6 pt-8">
           <h2 className="text-3xl font-bold text-gray-800">

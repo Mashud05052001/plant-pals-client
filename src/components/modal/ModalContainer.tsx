@@ -75,7 +75,7 @@ const ModalContainer = ({
         className="z-50"
         scrollBehavior="inside"
       >
-        <ModalContent className="py-3 px-2">
+        <ModalContent className="py-3 px-2 dark:bg-gray-800 ">
           {() => (
             <>
               <ModalHeader className="flex flex-col gap-1">{title}</ModalHeader>

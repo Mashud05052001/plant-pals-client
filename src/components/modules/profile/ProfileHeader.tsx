@@ -56,8 +56,8 @@ const ProfileHeader = ({
       </div>
       {/* Other Information */}
       <div className="space-y-4">
-        <div className="space-y-1 flex flex-col md:flex-row items-center md:items-end md:space-x-12 justify-center">
-          <div className="relative">
+        <div className="space-y-1 flex flex-col lg:flex-row items-center lg:items-end lg:space-x-12 justify-center">
+          <div className="relative flex flex-col items-center md:items-start">
             <div className="flex items-center space-x-3 relative ">
               <div className="flex items-end">
                 <h2 className="text-3xl font-semibold">{userData.name}</h2>
@@ -73,15 +73,15 @@ const ProfileHeader = ({
                   />
                 </div>
               )}
-              {userData?.isVerified || (
+              {isMyInformation && !userData?.isVerified && (
                 <VerifiedMeModal totalUpvoteofUser={totalUpvoteofUser}>
-                  <p className="text-sm px-3 py-0.5 border-2 absolute w-24 flex justify-center -top-3 rounded-md hover:bg-gray-200 duration-150 hover:font-medium">
+                  <p className="text-sm px-3 py-0.5 border-2  w-24 flex justify-center rounded-md hover:bg-gray-200 duration-150 hover:font-medium">
                     Verify Me
                   </p>
                 </VerifiedMeModal>
               )}
             </div>
-            <h4 className="font-medium text-center md:text-left mb-3">
+            <h4 className="font-medium text-center lg:text-left mb-3">
               {userData?.email}
             </h4>
             {userData?.bio && (
@@ -108,25 +108,29 @@ const ProfileHeader = ({
               </div>
             )}
             <div className="flex flex-col space-y-2">
-              {!isMyInformation ? (
-                loginUserData !== null ? (
-                  <RandomPersonProfileFollow
-                    profileUserId={userData?._id}
-                    loginUserData={loginUserData as TUser}
-                    profileUserName={userData?.name}
-                  />
+              <div className="flex justify-center lg:justify-start">
+                {!isMyInformation ? (
+                  loginUserData !== null ? (
+                    <RandomPersonProfileFollow
+                      profileUserId={userData?._id}
+                      loginUserData={loginUserData as TUser}
+                      profileUserName={userData?.name}
+                    />
+                  ) : (
+                    <LoginConfirmationModal
+                      redirect={`/users/${userData?._id}`}
+                    >
+                      <Tooltip content="Login to access follow" closeDelay={50}>
+                        <p className="bg-blue-500 text-white px-3 pt-1.5 rounded-lg font-semibold cursor-pointer text-xs h-7 w-fit">
+                          Follow
+                        </p>
+                      </Tooltip>
+                    </LoginConfirmationModal>
+                  )
                 ) : (
-                  <LoginConfirmationModal redirect={`/users/${userData?._id}`}>
-                    <Tooltip content="Login to access follow" closeDelay={50}>
-                      <p className="bg-blue-500 text-white px-3 pt-1.5 rounded-lg font-semibold cursor-pointer text-xs h-7 w-fit">
-                        Follow
-                      </p>
-                    </Tooltip>
-                  </LoginConfirmationModal>
-                )
-              ) : (
-                <></>
-              )}
+                  <></>
+                )}
+              </div>
               <div className="flex space-x-8">
                 <p>{userData?.myPosts.length} Posts</p>
                 {isMyInformation ? (

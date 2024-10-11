@@ -3,16 +3,16 @@ import { useUserProvider } from "@/src/context/user.provider";
 import { useUserLogin } from "@/src/hooks/auth.mutate.hook";
 import { useRouter, useSearchParams } from "next/navigation";
 
+import { loginValidationSchema } from "@/src/schemas/auth.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
 import { useEffect } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
+import ForgetPasswordModal from "../../modal/forgetPasswordModal/ForgetPasswordModal";
+import PPButton from "../../UI/button/PPButton";
 import CenterContainer from "../../UI/container/CenterContainer";
 import PPForm from "../../UI/form/PPForm";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { loginValidationSchema } from "@/src/schemas/auth.schema";
 import PPInput from "../../UI/form/PPInput";
-import PPButton from "../../UI/button/PPButton";
-import Link from "next/link";
-import ForgetPasswordModal from "../../modal/forgetPasswordModal/ForgetPasswordModal";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -29,20 +29,20 @@ const LoginPage = () => {
   useEffect(() => {
     if (isSuccess) {
       setUserLoading(true);
-      router.replace(redirect);
+      router.push(redirect);
     }
   }, [isSuccess]);
 
   return (
     <div>
-      <CenterContainer className="mx-auto w-96 sm:w-8/12 md:w-1/2 lg:w-5/12 rounded-lg border bg-white p-7 shadow-lg sm:p-10  border-common-300">
+      <CenterContainer className="mx-auto w-96 sm:w-8/12 md:w-1/2 lg:w-5/12 rounded-lg border bg-white dark:bg-gray-800 p-7 shadow-lg sm:p-10 border-common-300 dark:border-common-700">
         <div className="relative">
           <PPForm
             onSubmit={onSubmit}
             resolver={zodResolver(loginValidationSchema)}
           >
             <div className="space-y-6">
-              <h1 className="text-3xl font-semibold tracking-tight text-common-700">
+              <h1 className="text-3xl font-semibold tracking-tight text-common-700 dark:text-common-300">
                 Login
               </h1>
               <PPInput name="email" label="Email" type="email" />

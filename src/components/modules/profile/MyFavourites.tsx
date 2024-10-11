@@ -1,9 +1,9 @@
 import { useGetFavouritePosts } from "@/src/hooks/post.fetch.hook";
-import { TCategory, TUser } from "@/src/types";
+import { TUser } from "@/src/types";
+import ProfileFavouritesPostSkeleton from "../../shekeleton/ProfileFavouritesPostSkeleton";
 import PostGallery from "../SignlePost/PostGallery";
 import ProfilePostAction from "../SignlePost/ProfilePostAction";
 import ProfilePostHeader from "../SignlePost/ProfilePostHeader";
-import ProfileFavouritesPostSkeleton from "../../shekeleton/ProfileFavouritesPostSkeleton";
 
 type TProps = {
   postIds: string[];
@@ -46,7 +46,7 @@ export default function MyFavourites({ postIds }: TProps) {
         <div className="grid grid-cols-2 gap-6">
           {posts.data.data.map((post) => (
             <div key={post?._id}>
-              <div className="bg-white shadow-md rounded-lg p-4 mb-6 max-w-xl mx-auto relative">
+              <div className="bg-white shadow-md rounded-lg dark:bg-gray-800 p-4 mb-6 max-w-xl mx-auto relative">
                 {/* User Info */}
                 <ProfilePostHeader
                   post={post}

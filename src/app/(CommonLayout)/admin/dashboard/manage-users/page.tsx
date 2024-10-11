@@ -39,6 +39,7 @@ const ManageUsers = () => {
   const { data: allUsersData, isLoading: alluserdataLoading } =
     useGetAllUsersForAdmin();
   const { user: currentloginUser } = useUserProvider();
+  const isMe = (userEmail: string) => userEmail === currentloginUser?.email;
 
   const {
     mutate: handleChangeUserRole,
@@ -61,7 +62,9 @@ const ManageUsers = () => {
       switch (columnKey) {
         case "name":
           return (
-            <Link href={`/users/${user._id}`}>
+            <Link
+              href={`${isMe(user?.email) ? "/profile" : `/users/${user._id}`}`}
+            >
               <div className="hover:bg-gray-100 duration-150 rounded-md">
                 <User
                   avatarProps={{

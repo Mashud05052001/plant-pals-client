@@ -21,7 +21,7 @@ export default function SinglePhotoShow({ idx, imgUrl }: TProps) {
           alt={`Image`}
           width={500}
           height={500}
-          className="rounded-md hover:scale-[1.02] duration-200 hover:shadow-lg hover:shadow-gray-400"
+          className="rounded-md hover:scale-[1.02] duration-200 hover:shadow-lg hover:shadow-gray-400 dark:shadow-gray-700"
         />
       </Link>
     </LightGallery>

@@ -70,7 +70,7 @@ const CreateNewPost = ({ handleTabChange, isUserVerified }: TProps) => {
   }, [isSuccess]);
 
   return (
-    <div className="container max-w-5xl mt-6 ">
+    <div className="container max-w-5xl mt-6 dark:bg-gray-800 dark:p-6 rounded-lg">
       <h1 className="text-xl mb-6 font-bold tracking-wide">Create New Post</h1>
       <PPForm
         onSubmit={onSubmit}

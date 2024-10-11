@@ -1,20 +1,18 @@
 "use client";
 import { useUserProvider } from "@/src/context/user.provider";
+import { TPayment, TUser } from "@/src/types";
 import {
+  Chip,
+  User as NextUser,
   Table,
   TableBody,
   TableCell,
   TableColumn,
   TableHeader,
   TableRow,
-  Tooltip,
-  User as NextUser,
-  Chip,
 } from "@nextui-org/react";
 import Link from "next/link";
-import { FaEye } from "react-icons/fa";
 import { useCallback } from "react";
-import { TPayment, TUser } from "@/src/types";
 
 const columns = [
   { name: "USER INFO", uid: "user" },

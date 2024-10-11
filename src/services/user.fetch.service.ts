@@ -1,4 +1,3 @@
-import moment from "moment";
 import nexiosInstance from "../lib/nexiosInstance";
 import {
   TAllUser,

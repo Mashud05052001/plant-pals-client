@@ -2,12 +2,12 @@
 
 import PPButton from "@/src/components/UI/button/PPButton";
 import {
-  useDeleteSingleCategory,
   useDeleteAllCategories,
+  useDeleteSingleCategory,
 } from "@/src/hooks/category.mutate.hook";
 import { TCategory } from "@/src/types";
 import { Select, SelectItem } from "@nextui-org/select";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const DeleteCategory = ({ categories }: { categories: TCategory[] }) => {
   const [selectedCategoryId, setSelectedCategoryId] = useState("");

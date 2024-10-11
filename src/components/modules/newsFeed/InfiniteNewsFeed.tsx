@@ -23,7 +23,7 @@ export default function InfiniteNewsFeed({
   posts,
   loginUserData,
   searchParams,
-  isPremiumContent = false, // <-- This default ensures non-premium unless explicitly set
+  isPremiumContent = false,
 }: TProps) {
   const [totalPostsCount, setTotalPostsCount] = useState(
     posts?.meta?.totalData
@@ -34,7 +34,6 @@ export default function InfiniteNewsFeed({
   const { user } = useUserProvider();
   const loginUserEmail = user?.email || null;
 
-  // Fetch new posts based on searchParams and isPremiumContent
   useEffect(() => {
     const filterPosts = async () => {
       const searchTerm = searchParams?.searchTerm || "";
@@ -80,7 +79,7 @@ export default function InfiniteNewsFeed({
         {allStaticPosts?.map((post, idx) => (
           <div key={`${post?._id}-${idx}`}>
             <div key={post?._id}>
-              <div className="bg-white relative shadow-md rounded-lg p-4 mb-6 mx-auto">
+              <div className="relative shadow-md rounded-lg p-4 mb-6 mx-auto bg-white dark:bg-gray-800 dark:shadow-lg">
                 {/* User Info */}
                 <NewsFeedHeader
                   post={post}
@@ -108,7 +107,9 @@ export default function InfiniteNewsFeed({
           <Spinner color="success" />
         </div>
       ) : (
-        <p className="text-center pt-8 mb-8">All posts loaded successfully</p>
+        <p className="text-center pt-8 mb-8 dark:text-white">
+          All posts loaded successfully
+        </p>
       )}
     </div>
   );

@@ -15,7 +15,9 @@ const DashboardLink = ({ children, href, className }: TProps) => {
   return (
     <Link
       className={`font-semibold ${
-        isActive ? "active text-common-600" : "text-black"
+        isActive
+          ? "active text-common-600 dark:text-common-500"
+          : "text-black dark:text-white"
       } ${className}`}
       href={href}
     >

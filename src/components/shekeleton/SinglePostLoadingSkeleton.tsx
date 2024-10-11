@@ -6,7 +6,7 @@ const SinglePostLoadingSkeleton = ({
   withComments?: boolean;
 }) => {
   return (
-    <div className="p-4 border rounded-lg shadow-md">
+    <div className="p-4 border dark:border-black rounded-lg shadow-md">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-3">
           <div className="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full animate-pulse" />

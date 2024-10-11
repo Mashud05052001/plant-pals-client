@@ -1,15 +1,15 @@
 "use client";
+import envConfig from "@/src/config/envConfig";
 import { useUserProvider } from "@/src/context/user.provider";
 import { useVoatingPost } from "@/src/hooks/post.mutate.hook";
 import { TPlaneUser, TPost, TUser } from "@/src/types";
+import { handleCopyToClipboard } from "@/src/utils/copyToClipboard";
 import { Button, Spinner } from "@nextui-org/react";
 import { useState } from "react";
 import { BiSolidDownvote, BiSolidUpvote } from "react-icons/bi";
+import { IoMdShare } from "react-icons/io";
 import { toast } from "sonner";
 import LoginConfirmationModal from "../../modal/singleModal/LoginConfirmationModal";
-import { IoMdShare } from "react-icons/io";
-import envConfig from "@/src/config/envConfig";
-import { handleCopyToClipboard } from "@/src/utils/copyToClipboard";
 import PostCommentsModal from "../../modal/singleModal/PostCommentsModal";
 
 type TProps = {
@@ -210,7 +210,11 @@ export default function SinglePostAction({
             {post?.comments.length === 1 ? "Comment" : "Comments"}
           </p>
         )}
-        <Button variant="faded" size="sm" className="border-none">
+        <Button
+          variant="faded"
+          size="sm"
+          className="border-none dark:bg-gray-700"
+        >
           <IoMdShare
             className="size-6 cursor-pointer"
             onClick={() => {

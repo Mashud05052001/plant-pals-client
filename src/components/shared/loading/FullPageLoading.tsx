@@ -1,7 +1,12 @@
-import { TChildrenProps } from "@/src/types";
 import { Spinner } from "@nextui-org/spinner";
+import { ReactNode } from "react";
 
-const FullPageGlassLoading = ({ children, className }: TChildrenProps) => {
+type TProps = {
+  className?: string;
+  children?: ReactNode;
+};
+
+const FullPageGlassLoading = ({ children, className }: TProps) => {
   return (
     <div
       className={`bg-black/10 w-screen h-screen fixed inset-0 z-[99] backdrop-blur-md  flex justify-center items-center duration-100 ${className}`}

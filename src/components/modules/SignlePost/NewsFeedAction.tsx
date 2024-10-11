@@ -221,7 +221,11 @@ export default function NewsFeedAction({
           </p>
         </PostCommentsModal>
 
-        <Button variant="faded" size="sm" className="border-none">
+        <Button
+          variant="faded"
+          size="sm"
+          className="border-none dark:bg-gray-700"
+        >
           <IoMdShare
             className="size-6 cursor-pointer"
             onClick={() => {

@@ -7,6 +7,7 @@ export const handleCopyToClipboard = (url: string) => {
       toast.success("Post link copied to clipboard!");
     })
     .catch((error) => {
+      console.log(error);
       toast.error("Failed to copy the post link.");
     });
 };

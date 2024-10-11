@@ -7,7 +7,7 @@ type TProps = {
 };
 export default function Layout({ children }: TProps) {
   return (
-    <div className="relative flex flex-col h-screen">
+    <div className="relative flex flex-col min-h-screen  dark:bg-gray-950">
       <Navbar />
       <CommonContainer className="flex-grow mt-8 pb-8">
         {children}

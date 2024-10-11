@@ -25,6 +25,7 @@ import { MdEdit } from "react-icons/md";
 import LoginConfirmationModal from "../../modal/singleModal/LoginConfirmationModal";
 import PartialComponentGlassLoading from "../../shared/loading/PartialCompoentLoading";
 import PremiumLogo from "../../shared/PremiumLogo";
+import DOMPurify from "dompurify";
 
 type TProps = {
   post: TPost;
@@ -141,18 +142,18 @@ export default function NewsFeedHeader({
   );
 
   return (
-    <div className="flex justify-between ">
+    <div className="flex justify-between">
       {/* Loading Spinner */}
       <>
         {deletedPostId === post?._id && (
           <PartialComponentGlassLoading className="rounded-lg">
-            <p>Post is deleting</p>
+            <p className="dark:text-gray-200">Post is deleting</p>
           </PartialComponentGlassLoading>
         )}
 
         {favouritePostId === post?._id && (
           <PartialComponentGlassLoading className="rounded-lg">
-            <p>
+            <p className="dark:text-gray-200">
               Post is {isFavouriteAdding ? "adding into" : "removing from"}{" "}
               favourites
             </p>
@@ -164,10 +165,10 @@ export default function NewsFeedHeader({
 
         <div>
           {/* Creater Infos */}
-          <div className="flex items-center justify-between relative ">
+          <div className="flex items-center justify-between relative">
             {/* Post Created By User Information */}
             <div className="flex items-center space-x-4">
-              <div className="w-12 relative h-12 border-[1px] rounded-full border-common-600">
+              <div className="w-12 relative h-12 border-[1px] rounded-full border-common-600 dark:border-gray-500">
                 <Image
                   src={createdUserData?.profilePicture || noProfilePicture}
                   alt={`Profile-${createdUserData?.name}`}
@@ -177,7 +178,9 @@ export default function NewsFeedHeader({
               </div>
               <div className="flex items-center space-x-2">
                 <Link href={userProfileLink}>
-                  <h4 className="text-lg font-bold">{createdUserData?.name}</h4>
+                  <h4 className="text-lg font-bold dark:text-gray-100">
+                    {createdUserData?.name}
+                  </h4>
                 </Link>
                 {/* Verified Tag */}
                 <div>
@@ -204,7 +207,7 @@ export default function NewsFeedHeader({
                           >
                             <Button
                               size="sm"
-                              className="bg-gray-200 px-3 py-1 rounded-lg font-semibold cursor-pointer text-xs h-7"
+                              className="bg-gray-200 dark:bg-gray-600 dark:text-gray-200 px-3 py-1 rounded-lg font-semibold cursor-pointer text-xs h-7"
                               isLoading={isFollowingLoading}
                               onClick={() =>
                                 handleFollow(
@@ -221,7 +224,7 @@ export default function NewsFeedHeader({
                           <Tooltip content="Click to follow" closeDelay={50}>
                             <Button
                               size="sm"
-                              className="bg-blue-500 text-white px-3 py-1 rounded-lg font-semibold cursor-pointer text-xs h-7"
+                              className="bg-blue-500 dark:bg-blue-700 text-white px-3 py-1 rounded-lg font-semibold cursor-pointer text-xs h-7"
                               isLoading={isFollowingLoading}
                               onClick={() =>
                                 handleFollow(
@@ -257,7 +260,7 @@ export default function NewsFeedHeader({
                       />
                     ) : (
                       <FaRegHeart
-                        className="size-6 cursor-pointer"
+                        className="size-6 cursor-pointer dark:text-gray-300"
                         onClick={() =>
                           handleFavourite(post?._id, post?.title, "add")
                         }
@@ -266,7 +269,7 @@ export default function NewsFeedHeader({
                   </>
                 ) : (
                   <LoginConfirmationModal>
-                    <FaRegHeart className="size-6 cursor-pointer " />
+                    <FaRegHeart className="size-6 cursor-pointer dark:text-gray-300" />
                   </LoginConfirmationModal>
                 )}
               </div>
@@ -281,14 +284,15 @@ export default function NewsFeedHeader({
                   <DropdownMenu
                     aria-label="Static Actions"
                     style={{ minWidth: "220px" }}
+                    className="dark:bg-gray-700 dark:text-gray-300"
                   >
                     <DropdownItem key="edit">
                       <Link
                         href={`/posts/update-post/${post?._id}?redirect=/profile`}
-                        className="bg-red-200"
+                        className="bg-red-200 dark:bg-gray-600"
                       >
-                        <div className="flex  items-center space-x-2">
-                          <MdEdit className="size-4" />
+                        <div className="flex items-center space-x-2">
+                          <MdEdit className="size-4 dark:text-gray-200" />
                           <p>Edit My Post</p>
                         </div>
                       </Link>
@@ -298,7 +302,9 @@ export default function NewsFeedHeader({
                       className="text-danger"
                       color="danger"
                       onClick={() => handleDelete(post?._id, post?.title)}
-                      startContent={<IoTrashSharp className="size-4" />}
+                      startContent={
+                        <IoTrashSharp className="size-4 dark:text-red-500" />
+                      }
                     >
                       Delete My Post
                     </DropdownItem>
@@ -307,40 +313,36 @@ export default function NewsFeedHeader({
               )}
             </div>
           </div>
-          <Divider className="mb-4 mt-3 w-full bg-common-600 h-[1.1px] border-2" />
+          <Divider className="mb-4 mt-3 w-full bg-common-600 dark:bg-gray-500 h-[1.1px] border-2" />
         </div>
 
         {/* Action Header */}
-        {/* <PostCommentsModal post={post}> */}
         <Link href={`/posts/${post?._id}`}>
-          <div className="hover:bg-gray-100 rounded-lg duration-200 px-3 pb-3">
-            <div className="flex items-end cursor-pointer w-fit ">
-              <h3 className="font-semibold text-lg text-gray-800">
+          <div className="hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg duration-200 px-3 pb-3">
+            <div className="flex items-end cursor-pointer w-fit">
+              <h3 className="font-semibold text-lg text-gray-800 dark:text-gray-200">
                 {post?.title}
+                <span className="pl-2 text-sm pb-0.5 dark:text-gray-400">
+                  ({postCategory && postCategory})
+                </span>
               </h3>
-              <h4 className="pl-1 text-sm pb-0.5">
-                {" "}
-                ({postCategory && postCategory})
-              </h4>
               {post?.isPremium && <PremiumLogo />}
             </div>
 
-            <p className="text-sm text-gray-500 mb-3 mt-1">
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-3 mt-1">
               Date: {moment(post?.createdAt).format(`DD-MM-YYYY`)}
             </p>
 
             {/* Post Description */}
-            {/* //TODO : Rich text not working */}
-            {/* <div
-            className="text-gray-700 mb-4"
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(description),
-            }}
-          /> */}
-            <p>{post?.description}</p>
+            <div className="article-content dark:text-gray-300">
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(post?.description as string),
+                }}
+              />
+            </div>
           </div>
         </Link>
-        {/* </PostCommentsModal> */}
       </div>
     </div>
   );

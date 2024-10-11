@@ -1,6 +1,6 @@
 const ProfilePostLoadingSkeleton = () => {
   return (
-    <div className="p-4 border rounded-lg shadow-md">
+    <div className="p-4 border dark:border-gray-900 rounded-lg shadow-md">
       <div className="space-y-2 mb-4">
         <div className="w-48 h-4 bg-gray-200 dark:bg-gray-700 animate-pulse rounded" />
         <div className="w-32 h-3 bg-gray-200 dark:bg-gray-700 animate-pulse rounded" />

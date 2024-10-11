@@ -1,12 +1,12 @@
 "use client";
-import { ReactNode, useEffect, useState } from "react";
-import ModalContainer from "../ModalContainer";
-import { Input } from "@nextui-org/input";
-import PPButton from "../../UI/button/PPButton";
 import { useCreatePayment } from "@/src/hooks/user.mutate.hook";
-import { toast } from "sonner";
+import { Input } from "@nextui-org/input";
 import { useRouter } from "next/navigation";
-import { divider } from "@nextui-org/react";
+import { ReactNode, useEffect, useState } from "react";
+import { toast } from "sonner";
+import PPButton from "../../UI/button/PPButton";
+import ModalContainer from "../ModalContainer";
+import envConfig from "@/src/config/envConfig";
 
 type TProps = {
   children: ReactNode;
@@ -38,7 +38,7 @@ const VerifiedMeModal = ({ children, totalUpvoteofUser }: TProps) => {
     if (!isValidPhoneNumber) return;
     const paymentData = {
       customerPhone: phoneNumber,
-      cancleUrl: "http://localhost:3000/profile",
+      cancleUrl: `${envConfig?.baseURL}/profile`,
       totalAmount: 5,
     };
     console.log(paymentData);

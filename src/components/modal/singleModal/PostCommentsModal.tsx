@@ -1,24 +1,24 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import noProfile from "@/src/assets/no-profile.jpg";
-import { TComment, TPost, TUser } from "@/src/types";
-import { Textarea } from "@nextui-org/input";
-import Image from "next/image";
-import { IoMdSend } from "react-icons/io";
-import CommentsSkeleton from "../../shekeleton/CommentsSkeleton";
-import PPButton from "../../UI/button/PPButton";
-import ModalContainer from "../ModalContainer";
+import { useUserProvider } from "@/src/context/user.provider";
 import {
   useCreateComments,
   useDeleteComment,
   useGetCommentsOfAPost,
   useUpdateComment,
 } from "@/src/hooks/comments.hook";
+import { TComment, TUser } from "@/src/types";
+import { Textarea } from "@nextui-org/input";
+import { Spinner } from "@nextui-org/react";
 import moment from "moment";
-import { useUserProvider } from "@/src/context/user.provider";
+import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { IoMdSend } from "react-icons/io";
 import { IoTrashSharp } from "react-icons/io5";
 import { MdModeEdit } from "react-icons/md";
-import { Spinner } from "@nextui-org/react";
+import CommentsSkeleton from "../../shekeleton/CommentsSkeleton";
+import PPButton from "../../UI/button/PPButton";
+import ModalContainer from "../ModalContainer";
 
 type TProps = {
   children: React.ReactNode;

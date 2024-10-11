@@ -1,9 +1,7 @@
+import FullPageGlassLoading from "../components/shared/loading/FullPageLoading";
+
 const Loading = () => {
-  return (
-    <div>
-      <h1 className="text-2xl"> This is Root Loading </h1>
-    </div>
-  );
+  return <FullPageGlassLoading />;
 };
 
 export default Loading;

@@ -35,8 +35,7 @@ const NewsFeedFilter = ({ allCategories }: { allCategories: TCategory[] }) => {
             base: "max-w-full h-10",
             mainWrapper: "h-full",
             input: "text-small",
-            inputWrapper:
-              "h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20 rounded-lg",
+            inputWrapper: "h-full font-normal text-default-500 rounded-lg",
           }}
           placeholder="Search by name, description..."
           size="lg"

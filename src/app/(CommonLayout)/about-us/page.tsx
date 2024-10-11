@@ -26,38 +26,7 @@ export default function Page() {
       </div>
       {/* Project & Development Roadmap */}
       <AboutTimeLine />
-      {/* <div className="my-20 px-4 overflow-x-hidden">
-        <h2 className="text-3xl font-bold text-center text-common-600 mb-16">
-          Project & Development Roadmap
-        </h2>
-        <VerticalTimeline animate={true} lineColor="#D3D3D3">
-          {timelineData.map((item, index) => (
-            <VerticalTimelineElement
-              key={index}
-              className={`vertical-timeline-element--${item.type}`}
-              contentStyle={{ background: item.iconBgColor, color: "#fff" }}
-              contentArrowStyle={{
-                borderRight: `8px solid ${item.iconBgColor}`,
-              }}
-              date={item.date}
-              iconStyle={{ background: item.iconBgColor, color: "#fff" }}
-              icon={item.icon}
-            >
-              <h3 className="vertical-timeline-element-title text-xl font-semibold">
-                {item.title}
-              </h3>
-              <h4 className="vertical-timeline-element-subtitle text-sm font-semibold">
-                {item.subtitle}
-              </h4>
-              <p>{item.description}</p>
-            </VerticalTimelineElement>
-          ))}
-          <VerticalTimelineElement
-            iconStyle={{ background: "#000", color: "#fff" }}
-            icon={<ListEnd />}
-          />
-        </VerticalTimeline>
-      </div> */}
+
       {/* Meet Our Team */}
       <div className="my-20 px-4">
         <h2 className="text-3xl font-bold text-center text-common-600 mb-16">
@@ -87,35 +56,34 @@ export default function Page() {
       <AboutCarousel />
       {/* Our Community */}
       <div className="my-20 text-center p-2">
-        <h3 className="text-common-600 text-3xl font-bold mb-2">
+        <h3 className="text-common-600 dark:text-common-500 text-3xl font-bold mb-2">
           Our Community
         </h3>
-        <p className="text-black text-opacity-70 font-semibold">
+        <p className="text-black dark:text-gray-300 text-opacity-70 font-semibold">
           Discuss the importance of the{" "}
           <span className="text-common-500">PlantPals</span> community and how
-          users contribute to its growth. You can mention user-generated
-          content, forums, discussions, or social features.At the heart of our
+          users contribute to its growth. At the heart of our
           community—gardeners of all levels who contribute their knowledge,
           share experiences, and support each other. Whether you’re seeking
           advice or offering tips, every interaction helps us grow together.
         </p>
       </div>
       {/* Our Future Goal */}
-      <div className="my-20  text-center p-2">
-        <h3 className="text-common-600 text-3xl font-bold mb-2">
+      <div className="my-20 text-center p-2">
+        <h3 className="text-common-600 dark:text-common-500 text-3xl font-bold mb-2">
           Our Future Goal
         </h3>
-        <p className="text-black text-opacity-70 font-semibold">
+        <p className="text-black dark:text-gray-300 text-opacity-70 font-semibold">
           Talk about where <span className="text-common-500">PlantPals</span> is
           headed. Mention upcoming features, events, or collaborations that will
-          excite users about the platform’s future. Looking ahead, we’re working
-          on adding advanced gardening tools, personalized plant care schedules,
-          and integrating with local plant nurseries to bring you a complete
-          gardening ecosystem. Stay tuned for exciting new features coming soon!
+          excite users about the platform’s future. We’re working on adding
+          advanced gardening tools, personalized plant care schedules, and
+          integrating with local plant nurseries to bring you a complete
+          gardening ecosystem.
         </p>
       </div>
       <div className="my-10 text-center">
-        <small className="text-common-600 font-bold">
+        <small className="text-common-600 dark:text-common-500 font-bold">
           Thanks for visiting us
         </small>
       </div>

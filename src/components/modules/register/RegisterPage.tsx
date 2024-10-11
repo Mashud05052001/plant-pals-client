@@ -45,8 +45,8 @@ const RegisterPage = () => {
           onSubmit={onSubmit}
           resolver={zodResolver(registerValidationSchema)}
         >
-          <div className="space-y-6 mx-auto w-96 sm:w-8/12 md:w-1/2 lg:w-5/12 rounded-lg border bg-white p-7 shadow-lg sm:p-10  border-common-300">
-            <h1 className="text-3xl font-semibold tracking-tight text-common-700">
+          <div className="space-y-6 mx-auto w-96 sm:w-8/12 md:w-1/2 lg:w-5/12 rounded-lg border bg-white dark:bg-gray-800 p-7 shadow-lg sm:p-10 border-common-300 dark:border-common-700">
+            <h1 className="text-3xl font-semibold tracking-tight text-common-700 dark:text-common-300">
               Register
             </h1>
             <PPInput name="name" label="Name" type="text" />
@@ -58,11 +58,10 @@ const RegisterPage = () => {
               type="password"
             />
 
-            {/* Error Message & Forget Password */}
+            {/* Error Message */}
             <div className="text-xs">
               {error ? (
                 <p className="text-red-600 font-medium ml-1">
-                  {/* {(error as TError)?.data?.message} */}
                   {error?.message}
                 </p>
               ) : (

@@ -1,9 +1,8 @@
-import { FaArrowDown, FaArrowUp } from "react-icons/fa";
-import { BiSolidDownvote, BiSolidUpvote } from "react-icons/bi";
-import { Button } from "@nextui-org/react";
-import { IoMdShare } from "react-icons/io";
-import { handleCopyToClipboard } from "@/src/utils/copyToClipboard";
 import envConfig from "@/src/config/envConfig";
+import { handleCopyToClipboard } from "@/src/utils/copyToClipboard";
+import { Button } from "@nextui-org/react";
+import { BiSolidDownvote, BiSolidUpvote } from "react-icons/bi";
+import { IoMdShare } from "react-icons/io";
 import PostCommentsModal from "../../modal/singleModal/PostCommentsModal";
 
 type TProps = {

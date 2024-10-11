@@ -11,6 +11,7 @@ type TProps = {
   variant?: "flat" | "bordered" | "underlined" | "faded";
   size?: "sm" | "md" | "lg";
   isDisabled?: boolean;
+  className?: string;
 };
 
 export default function PPSelect({
@@ -20,6 +21,7 @@ export default function PPSelect({
   variant = "underlined",
   size = "md",
   isDisabled = false,
+  className,
 }: TProps) {
   return (
     <Controller
@@ -32,6 +34,7 @@ export default function PPSelect({
             label={label}
             variant={variant}
             size={size}
+            className={`${className} dark:bg-default-500/20`}
           >
             {options.map((item) => (
               <SelectItem key={item.key}>{item.label}</SelectItem>

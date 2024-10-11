@@ -26,6 +26,7 @@ import { IoTrashSharp } from "react-icons/io5";
 import { MdEdit } from "react-icons/md";
 import LoginConfirmationModal from "../../modal/singleModal/LoginConfirmationModal";
 import PartialComponentGlassLoading from "../../shared/loading/PartialCompoentLoading";
+import DOMPurify from "dompurify";
 
 type TProps = {
   post: TPost;
@@ -298,11 +299,10 @@ export default function SinglePostHeader({ post, loginUserData }: TProps) {
           <div className="flex items-end cursor-pointer hover:underline w-fit ">
             <h3 className="font-semibold text-lg text-gray-800">
               {post?.title}
+              <span className="pl-2 text-sm pb-0.5 dark:text-gray-400">
+                ({postCategory && postCategory})
+              </span>
             </h3>
-            <h4 className="pl-1 text-sm pb-0.5">
-              {" "}
-              ({postCategory && postCategory})
-            </h4>
           </div>
 
           <p className="text-sm text-gray-500 mb-3 mt-1">
@@ -310,14 +310,13 @@ export default function SinglePostHeader({ post, loginUserData }: TProps) {
           </p>
 
           {/* Post Description */}
-          {/* //TODO : Rich text not working */}
-          {/* <div
-            className="text-gray-700 mb-4"
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(description),
-            }}
-          /> */}
-          {post?.description}
+          <div className="article-content">
+            <div
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(post?.description as string),
+              }}
+            />
+          </div>
         </div>
 
         {/* </PostCommentsModal> */}

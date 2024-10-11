@@ -29,8 +29,7 @@ import { useFollowUser } from "@/src/hooks/user.mutate.hook";
 import { TUser } from "@/src/types";
 import { Button } from "@nextui-org/react";
 import { Tooltip } from "@nextui-org/tooltip";
-import { useState, useEffect } from "react";
-import { toast } from "sonner";
+import { useEffect, useState } from "react";
 
 type TProps = {
   loginUserData: TUser | null;
@@ -81,7 +80,7 @@ const RandomPersonProfileFollow = ({
         <Tooltip content="Already followed. Click to unfollow" closeDelay={50}>
           <Button
             size="sm"
-            className="bg-gray-200 px-3 py-1 rounded-lg font-semibold cursor-pointer text-xs h-7"
+            className="bg-gray-200 dark:bg-gray-600 dark:text-gray-200  px-3 py-1 rounded-lg font-semibold cursor-pointer text-xs h-7"
             isLoading={isFollowingLoading}
             onClick={() => handleFollow("remove")}
           >

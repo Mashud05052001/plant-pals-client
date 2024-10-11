@@ -43,7 +43,8 @@ export default function PPButton({
       fullWidth={fullWidth}
       spinnerPlacement={spinnerPlacement}
       spinner={<ButtonLoadingIcon />}
-      className={` px-10 text-base ${className}`}
+      // className={`px-10 text-base ${className}`}
+      className={`px-10 text-base dark:bg-gray-700 dark:text-white ${className}`}
       onClick={onClick}
     >
       {buttonText}

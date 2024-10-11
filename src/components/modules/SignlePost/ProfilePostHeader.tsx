@@ -11,7 +11,7 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from "@nextui-org/dropdown";
-import { Button, Divider, Tooltip } from "@nextui-org/react";
+import { Button, Divider } from "@nextui-org/react";
 import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
@@ -20,10 +20,11 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { FcLike } from "react-icons/fc";
 import { HiDotsVertical } from "react-icons/hi";
 import { IoTrashSharp } from "react-icons/io5";
-import { MdEdit, MdOutlineWorkspacePremium } from "react-icons/md";
+import { MdEdit } from "react-icons/md";
 import LoginConfirmationModal from "../../modal/singleModal/LoginConfirmationModal";
 import PartialComponentGlassLoading from "../../shared/loading/PartialCompoentLoading";
 import PremiumLogo from "../../shared/PremiumLogo";
+import DOMPurify from "dompurify";
 
 type TProps = {
   post: TPost;
@@ -47,7 +48,7 @@ export default function ProfilePostHeader({
 }: TProps) {
   const postId = post?._id,
     title = post?.title,
-    category = (post?.category as TCategory).name,
+    category = (post?.category as TCategory)?.name,
     description = post?.description || "",
     createdAt = post?.createdAt;
 
@@ -115,27 +116,27 @@ export default function ProfilePostHeader({
   );
 
   return (
-    <div className="flex justify-between ">
+    <div className="flex justify-between">
       {deletedPostId === postId && (
         <PartialComponentGlassLoading className="rounded-lg">
-          <p>Post is deleting</p>
+          <p className="dark:text-gray-200">Post is deleting</p>
         </PartialComponentGlassLoading>
       )}
       {favouritePostId === postId && (
         <PartialComponentGlassLoading className="rounded-lg">
-          <p>
+          <p className="dark:text-gray-200">
             Post is {isFavouriteAdding ? "adding into" : "removing from"}{" "}
             favourites
           </p>
         </PartialComponentGlassLoading>
       )}
-      <div className="w-full">
+      <div className="w-full dark:bg-dark-900">
         {/* Favourite Post Action Button */}
         {type === "myFavouritePosts" && (
           <>
-            <div className="flex items-center justify-between relative ">
+            <div className="flex items-center justify-between relative">
               <div className="flex items-center space-x-4">
-                <div className="w-12 relative h-12 border-[1px] rounded-full border-common-600">
+                <div className="w-12 relative h-12 border-[1px] rounded-full border-common-600 dark:border-gray-600">
                   <Image
                     src={createdUserData?.profilePicture || noProfilePicture}
                     alt={`Profile-${createdUserData?.name}`}
@@ -143,10 +144,12 @@ export default function ProfilePostHeader({
                     className="object-cover rounded-full p-0.5"
                   />
                 </div>
-                <h4 className="text-lg font-bold">{createdUserData?.name}</h4>
+                <h4 className="text-lg font-bold dark:text-gray-200">
+                  {createdUserData?.name}
+                </h4>
               </div>
               <Dropdown
-                className="absolute right-[7rem]"
+                className="absolute right-[7rem] dark:bg-dark-700"
                 style={{ minWidth: "225px" }}
                 backdrop="opaque"
               >
@@ -154,10 +157,11 @@ export default function ProfilePostHeader({
                 <DropdownMenu
                   aria-label="Static Actions"
                   style={{ minWidth: "220px" }}
+                  className="dark:bg-dark-700 dark:text-gray-200"
                 >
                   <DropdownItem
                     key="delete"
-                    className="text-danger"
+                    className="text-danger dark:text-red-500"
                     color="danger"
                     onClick={() => handleFavourite(postId, title, "remove")}
                     startContent={<IoTrashSharp className="size-4" />}
@@ -167,47 +171,53 @@ export default function ProfilePostHeader({
                 </DropdownMenu>
               </Dropdown>
             </div>
-            <Divider className="mb-4 mt-3 w-full bg-common-600 h-[1.1px] border-2" />
+            <Divider className="mb-4 mt-3 w-full bg-common-600 h-[1.1px] border-2 dark:bg-gray-700" />
           </>
         )}
         <Link href={`/posts/${postId}`}>
-          <div className="hover:bg-gray-100 rounded-lg duration-200 px-3 pb-3">
+          <div className=" hover:bg-gray-100 dark:hover:bg-gray-700  rounded-lg duration-200 px-3 pb-3">
             <div className="flex items-end">
-              <h3 className="font-semibold text-lg text-gray-800 ">{title}</h3>
-              <h4 className="pl-1 text-sm pb-0.5"> ({category && category})</h4>
+              <h3 className="font-semibold text-lg text-gray-800 dark:text-gray-100">
+                {title}
+                <span className="pl-2 text-sm pb-0.5 dark:text-gray-400">
+                  ({category && category})
+                </span>
+              </h3>
               {post?.isPremium && <PremiumLogo />}
             </div>
-            <p className="text-sm text-gray-500 mb-3 mt-1">
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-3 mt-1">
               Date: {moment(createdAt).format(`DD-MM-YYYY`)}
             </p>
 
             {/* Post Description */}
-            {/* //TODO : Rich text not working */}
-            {/* <div
-            className="text-gray-700 mb-4"
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(description),
-            }}
-          /> */}
-            {description}
+            <div className="article-content dark:text-gray-300">
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(description as string),
+                }}
+              />
+            </div>
           </div>
         </Link>
       </div>
-      {/* My Posts ACtion Button */}
+      {/* My Posts Action Button */}
       {type === "myPosts" && (
         <Dropdown
-          className="absolute right-0"
+          className="absolute right-0 dark:bg-dark-700"
           style={{ width: "auto" }}
           backdrop="opaque"
         >
           <DropdownTrigger>{optionsButtons}</DropdownTrigger>
-          <DropdownMenu aria-label="Static Actions">
+          <DropdownMenu
+            aria-label="Static Actions"
+            className="dark:bg-dark-700 dark:text-gray-200"
+          >
             <DropdownItem key="edit">
               <Link
                 href={`/posts/update-post/${postId}?redirect=/profile`}
-                className="bg-red-200"
+                className="bg-red-200 dark:bg-red-800"
               >
-                <div className="flex  items-center space-x-2">
+                <div className="flex items-center space-x-2">
                   <MdEdit className="size-4" />
                   <p>Edit</p>
                 </div>
@@ -216,13 +226,15 @@ export default function ProfilePostHeader({
             <DropdownItem
               key={"edit"}
               onClick={() => handleFavourite(postId, title, "add")}
-              startContent={<FcLike className="size-4 text-black" />}
+              startContent={
+                <FcLike className="size-4 text-black dark:text-white" />
+              }
             >
               Add To Favourites
             </DropdownItem>
             <DropdownItem
               key="delete"
-              className="text-danger"
+              className="text-danger dark:text-red-500"
               color="danger"
               onClick={() => handleDelete(postId, title)}
               startContent={<IoTrashSharp className="size-4" />}
@@ -243,7 +255,7 @@ export default function ProfilePostHeader({
                 />
               ) : (
                 <FaRegHeart
-                  className="size-6 cursor-pointer"
+                  className="size-6 cursor-pointer dark:text-gray-400"
                   onClick={() => handleFavourite(postId, title, "add")}
                 />
               )}
@@ -252,7 +264,7 @@ export default function ProfilePostHeader({
             <LoginConfirmationModal
               redirect={`${userId ? `/users/${userId}` : "/"}`}
             >
-              <FaRegHeart className="size-6 cursor-pointer " />
+              <FaRegHeart className="size-6 cursor-pointer dark:text-gray-400" />
             </LoginConfirmationModal>
           )}
         </div>

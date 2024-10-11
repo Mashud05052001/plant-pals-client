@@ -1,14 +1,13 @@
 "use client";
 
-import * as React from "react";
 import { NextUIProvider } from "@nextui-org/system";
-import { useRouter } from "next/navigation";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { ThemeProviderProps } from "next-themes/dist/types";
+import { useRouter } from "next/navigation";
+import * as React from "react";
 import { Toaster } from "sonner";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import UserProvider from "../context/user.provider";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 export interface ProvidersProps {
   children: React.ReactNode;
@@ -24,8 +23,7 @@ export function Providers({ children, themeProps }: ProvidersProps) {
       <QueryClientProvider client={queryClient}>
         <NextUIProvider navigate={router.push}>
           <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
-          <Toaster position="bottom-right" duration={2000} closeButton />
-          <ReactQueryDevtools initialIsOpen={false} />
+          <Toaster position="bottom-right" duration={2000} />
         </NextUIProvider>
       </QueryClientProvider>
     </UserProvider>
