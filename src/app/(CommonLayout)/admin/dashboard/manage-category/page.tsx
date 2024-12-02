@@ -5,7 +5,7 @@ import { useGetCategoriesServerSide } from "@/src/hooks/category.serverFetch.hoo
 
 const Page = async () => {
   const categories = await useGetCategoriesServerSide();
-  const categoryMessage = categories?.map((item) => item.name).join(", ");
+  const categoryMessage = categories?.map((item) => item?.name).join(", ");
 
   return (
     <div className="max-w-4xl mx-auto">

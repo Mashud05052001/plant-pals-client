@@ -27,12 +27,14 @@ const LoginPage = () => {
     isSuccess,
   } = useUserLogin();
   const onSubmit: SubmitHandler<FieldValues> = (data) => handleLogin(data);
+
   useEffect(() => {
     if (isSuccess) {
       setUserLoading(true);
       router.push(redirect);
+      window.location.reload();
     }
-  }, [isSuccess]);
+  }, [isSuccess, redirect, router, isLoginLoading]);
 
   return (
     <div>

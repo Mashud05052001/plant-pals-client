@@ -387,7 +387,7 @@ const ManagePosts = ({ allPosts }: { allPosts: TPost[] }) => {
             key={column.uid}
             align={column.uid === "actions" ? "center" : "start"}
           >
-            {column.name}
+            {column?.name}
           </TableColumn>
         )}
       </TableHeader>

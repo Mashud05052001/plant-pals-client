@@ -2,7 +2,7 @@ import SinglePostLoadingSkeleton from "@/src/components/shekeleton/SinglePostLoa
 
 const Loading = () => {
   return (
-    <div className="max-w-2xl mx-auto">
+    <div className="max-w-2xl mx-auto -mt-8">
       <SinglePostLoadingSkeleton withComments={true} />
     </div>
   );

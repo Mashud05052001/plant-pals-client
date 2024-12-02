@@ -1,10 +1,10 @@
 "use server";
 
+import SinglePhotoShow from "@/src/components/modules/gallery/SinglePhotoShow";
 import nexiosInstance from "@/src/lib/nexiosInstance";
 import { TGallery, TSuccessWithMeta } from "@/src/types";
 import { TbFaceIdError } from "react-icons/tb";
-
-import SinglePhotoShow from "@/src/components/modules/gallery/SinglePhotoShow";
+import modules from "./gallery.module.css";
 
 export default async function Page() {
   const response = await nexiosInstance.get("/posts?fields=gallery_images", {
@@ -19,11 +19,11 @@ export default async function Page() {
   return (
     <div>
       {data?.data.length > 0 ? (
-        // <div className={`${modules.gallery}`}>
-        <div className="gallery">
+        <div className={`${modules.gallery}`}>
+          {/* <div className="gallery"> */}
           {allPhotos.map((img, idx) => (
-            // <div className={`${modules.pics} p-2.5`} key={idx}>
-            <div className="pcis p-2.5" key={idx}>
+            // <div className="pcis p-2.5" key={idx}>
+            <div className={`${modules.pics} p-2.5`} key={idx}>
               <SinglePhotoShow idx={idx} imgUrl={img} />
               <>
                 {/* <SinglePhotoModal imgUrl={img} idx={idx}>

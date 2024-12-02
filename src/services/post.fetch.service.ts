@@ -5,7 +5,7 @@ import { TPost, TSuccess, TSuccessWithMeta } from "../types";
 
 export const getNewsFeed = async (
   page: number = 1,
-  limit: number = 3,
+  limit: number = 5,
   searchTerm: string = "",
   category: string = "",
   isPremium?: boolean // make it optional

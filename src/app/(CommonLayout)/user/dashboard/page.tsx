@@ -14,7 +14,11 @@ const Page = async () => {
 
   let totalUpvotes = 0;
 
-  if (Array.isArray(userData?.myPosts) && userData?.myPosts?.length !== 0) {
+  if (
+    userData !== undefined &&
+    Array.isArray(userData?.myPosts) &&
+    userData?.myPosts?.length !== 0
+  ) {
     userData?.myPosts?.forEach((post) => {
       totalUpvotes += (post as TPost)?.upvote || 0;
     });

@@ -1,6 +1,6 @@
 const FilterSkeleton = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 gap-y-6 md:gap-y-0">
+    <div className="grid grid-cols-2 gap-3 sm:gap-4 gap-y-6 sm:gap-y-0 mx-4 md:mx-0">
       <div>
         <div className="animate-pulse">
           <div className="h-10 w-full bg-gray-200 dark:bg-gray-700 rounded-lg" />

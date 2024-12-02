@@ -86,7 +86,7 @@ const UpdatePost = ({ categories, prevPostData }: TProps) => {
         </p>
         <p>
           Previous Category :{" "}
-          <strong>{(prevPostData?.category as TCategory).name}</strong>
+          <strong>{(prevPostData?.category as TCategory)?.name}</strong>
         </p>
         <p>
           Previous Status :{" "}

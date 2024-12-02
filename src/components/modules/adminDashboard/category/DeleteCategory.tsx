@@ -61,7 +61,7 @@ const DeleteCategory = ({ categories }: { categories: TCategory[] }) => {
           >
             {categories.map((category) => (
               <SelectItem key={category?._id} value={category?._id}>
-                {category.name}
+                {category?.name}
               </SelectItem>
             ))}
           </Select>

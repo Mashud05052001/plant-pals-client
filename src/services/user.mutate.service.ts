@@ -31,6 +31,7 @@ export const updateProfilePicture = catchServiceAsync(
       `/users/update-profile-picture`,
       payload
     );
+    revalidateTag("login-user-static-info");
     revalidateTag("myProfile");
     revalidateTag("myPosts");
     revalidateTag("myInfo");

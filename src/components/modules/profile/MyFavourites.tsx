@@ -43,7 +43,7 @@ export default function MyFavourites({ postIds }: TProps) {
   return (
     <div className="mt-2">
       {posts?.data?.data && posts?.data.meta.totalData ? (
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid mt-2 grid-cols-1 md:grid-cols-2 gap-6">
           {posts.data.data.map((post) => (
             <div key={post?._id}>
               <div className="bg-white shadow-md rounded-lg dark:bg-gray-800 p-4 mb-6 max-w-xl mx-auto relative">

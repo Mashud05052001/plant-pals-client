@@ -66,7 +66,7 @@ const UserDashboardFollowers = ({ userData }: { userData: TUser }) => {
             key={column.uid}
             align={column.uid === "verified" ? "center" : "start"}
           >
-            {column.name}
+            {column?.name}
           </TableColumn>
         )}
       </TableHeader>

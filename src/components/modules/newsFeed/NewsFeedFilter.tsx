@@ -28,7 +28,7 @@ const NewsFeedFilter = ({ allCategories }: { allCategories: TCategory[] }) => {
   }, [debounceKeyword, selectedCategory, router]);
   useEffect(() => {}, [selectedCategory, debounceKeyword]);
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 gap-y-6 sm:gap-y-0">
+    <div className="grid grid-cols-2 gap-3 sm:gap-4 gap-y-6 sm:gap-y-0 mx-4 md:mx-0">
       <div>
         <Input
           classNames={{
@@ -54,7 +54,7 @@ const NewsFeedFilter = ({ allCategories }: { allCategories: TCategory[] }) => {
           onChange={(e) => setSelectedCategory(e.target.value)}
         >
           {allCategories.map((category) => (
-            <SelectItem key={category._id}>{category.name}</SelectItem>
+            <SelectItem key={category._id}>{category?.name}</SelectItem>
           ))}
         </Select>
       </div>

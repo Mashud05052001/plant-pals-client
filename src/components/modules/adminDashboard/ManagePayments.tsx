@@ -89,7 +89,7 @@ const ManagePayments = ({ allPayments }: { allPayments: TPayment[] }) => {
   return (
     <Table aria-label="Manage Payments Table">
       <TableHeader columns={columns}>
-        {(column) => <TableColumn key={column.uid}>{column.name}</TableColumn>}
+        {(column) => <TableColumn key={column.uid}>{column?.name}</TableColumn>}
       </TableHeader>
       <TableBody items={allPayments}>
         {(payment) => (

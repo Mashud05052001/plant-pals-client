@@ -2,6 +2,8 @@
 import logo from "@/src/assets/plant_pals.png";
 import { ThemeSwitch } from "@/src/components/theme-switch";
 import { siteConfig } from "@/src/config/site";
+import { useUserProvider } from "@/src/context/user.provider";
+import { TUser } from "@/src/types";
 import {
   NavbarBrand,
   NavbarContent,
@@ -11,24 +13,20 @@ import {
   Navbar as NextUINavbar,
 } from "@nextui-org/navbar";
 import Image from "next/image";
-import NavLink from "../NavLink";
-import { useEffect, useState } from "react";
-import { useUserProvider } from "@/src/context/user.provider";
-import NavbarDropdown from "./NavbarDropdown";
-import { LuLogIn } from "react-icons/lu";
 import Link from "next/link";
-import { getCurrentUserFromDB } from "@/src/services/auth.mutate.service";
-import { TUser } from "@/src/types";
+import { useState } from "react";
+import { LuLogIn } from "react-icons/lu";
+import NavLink from "../NavLink";
+import NavbarDropdown from "./NavbarDropdown";
 
-export const Navbar = () => {
-  const [userInfo, setUserInfo] = useState<TUser | null>(null);
+export const Navbar = ({ userInfo }: { userInfo: TUser | null }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user } = useUserProvider();
 
   const toggleNavbarDropdown = (
     <>
       {user?.role ? (
-        <NavbarDropdown />
+        <NavbarDropdown profilePic={userInfo?.profilePicture} />
       ) : (
         <Link
           href={"/login"}
@@ -40,19 +38,6 @@ export const Navbar = () => {
     </>
   );
 
-  useEffect(() => {
-    if (user?.email) {
-      const fetchUserData = async () => {
-        try {
-          const userData = await getCurrentUserFromDB();
-          setUserInfo(userData?.data);
-        } catch (error) {
-          console.error("Error fetching user data:", error);
-        }
-      };
-      fetchUserData();
-    }
-  }, [user]);
   const userVerified = userInfo?.isVerified || false;
   const navItems = siteConfig?.navItems;
   return (
@@ -126,29 +111,23 @@ export const Navbar = () => {
             <NavLink
               key={item.href}
               href={item.href}
-              className="pl-4 py-2 rounded-md w-52 hover:bg-common-50  duration-150"
+              className="pl-4 py-2 rounded-md w-52 hover:bg-common-50  duration-150 dark:hover:bg-gray-700"
+              onClick={() => {
+                setIsMenuOpen(false);
+              }}
             >
-              <button
-                onClick={() => {
-                  setIsMenuOpen(false);
-                }}
-              >
-                {item.label}
-              </button>
+              {item.label}
             </NavLink>
           ))}
           {userVerified && (
             <NavLink
               href={"/premium-news-feed"}
-              className="pl-4 py-2 rounded-md w-52 hover:bg-common-50  duration-150"
+              className="pl-4 py-2 rounded-md w-52 hover:bg-common-50  duration-150 dark:hover:bg-gray-700"
+              onClick={() => {
+                setIsMenuOpen(false);
+              }}
             >
-              <button
-                onClick={() => {
-                  setIsMenuOpen(false);
-                }}
-              >
-                Premium News
-              </button>
+              Premium News
             </NavLink>
           )}
         </div>

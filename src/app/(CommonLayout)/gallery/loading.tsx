@@ -1,4 +1,4 @@
-// import modules from "./gallery.module.css";
+import modules from "./gallery.module.css";
 
 export default function Loading() {
   const getRandomHeightClass = () => {
@@ -6,8 +6,8 @@ export default function Loading() {
     return heights[Math.floor(Math.random() * heights.length)];
   };
   return (
-    // <div className={` ${modules.skeletonBox}`}>
-    <div className="skeletonBox">
+    <div className={` ${modules.skeletonBox}`}>
+      {/* <div className="skeletonBox"> */}
       {/* Display 8 skeleton blocks while loading */}
       {Array.from({ length: 15 }).map((_, idx) => (
         <div

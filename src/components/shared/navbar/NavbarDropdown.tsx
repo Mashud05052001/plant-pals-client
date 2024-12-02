@@ -13,7 +13,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import envConfig from "@/src/config/envConfig";
 
-const NavbarDropdown = () => {
+const NavbarDropdown = ({ profilePic }: { profilePic: string | undefined }) => {
   const { user, setIsLoading } = useUserProvider();
   const router = useRouter();
   const dashboardLink =
@@ -35,7 +35,8 @@ const NavbarDropdown = () => {
             isBordered
             as="button"
             className="transition-transform"
-            src={user?.profilePicture || envConfig?.noProfilePic}
+            // src={profilePic || user?.profilePicture || envConfig?.noProfilePic}
+            src={profilePic || envConfig?.noProfilePic}
           />
         </DropdownTrigger>
         <DropdownMenu aria-label="Profile Actions" variant="flat">

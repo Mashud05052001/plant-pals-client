@@ -22,7 +22,7 @@ const EditProfileModel = ({ children, userData }: TProps) => {
   const [openModal, setOpenModal] = useState(false);
   const { mutate: handleUpdateMe, isLoading, isSuccess, error } = useUpdateMe();
   const methods = useForm({
-    defaultValues: { name: userData.name, bio: userData?.bio || "" },
+    defaultValues: { name: userData?.name, bio: userData?.bio || "" },
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {

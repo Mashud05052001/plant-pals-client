@@ -29,9 +29,15 @@ const ProfileHeader = ({
   const profilePicture =
     userData?.profilePicture || envConfig?.noProfilePic || noProfileImage;
   let totalUpvoteofUser = 0;
-  (userData?.myPosts as TPost[]).forEach(
-    (post) => (totalUpvoteofUser += Number(post?.upvote) || 0)
-  );
+  if (
+    userData !== undefined &&
+    Array.isArray(userData?.myPosts) &&
+    userData?.myPosts?.length !== 0
+  ) {
+    (userData?.myPosts as TPost[]).forEach((post) => {
+      totalUpvoteofUser += (post as TPost)?.upvote || 0;
+    });
+  }
 
   return (
     <div className="flex gap-x-10 flex-col md:flex-row space-y-4 items-center select-none">
@@ -60,7 +66,7 @@ const ProfileHeader = ({
           <div className="relative flex flex-col items-center md:items-start">
             <div className="flex items-center space-x-3 relative ">
               <div className="flex items-end">
-                <h2 className="text-3xl font-semibold">{userData.name}</h2>
+                <h2 className="text-3xl font-semibold">{userData?.name}</h2>
                 <p className="text-sm pl-1 mb-1">_{userData?.role}</p>
               </div>
               {userData?.isVerified && (

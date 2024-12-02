@@ -25,20 +25,18 @@ const LoginConfirmationModal = ({ children, redirect = "/" }: TProps) => {
         placement="top"
         size="md"
       >
-        <div className="text-left ">
-          <p className="text-gray-700 mb-4">
+        <div className="text-left">
+          <p className="text-gray-700 dark:text-gray-300 mb-4">
             In order to submit your queued data, you need to login.
-            {/* If you want to do this now, you will be redirected, and lose unsaved
-            information. */}
           </p>
-          <p className="text-gray-700 mb-8">
+          <p className="text-gray-700 dark:text-gray-300 mb-8">
             Would you like to login now or later?
           </p>
 
-          <div className="flex justify-end space-x-6 ">
+          <div className="flex justify-end space-x-6">
             <button
               onClick={() => setOpenModal(false)}
-              className="bg-gray-200 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-300 transition-all"
+              className="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition-all"
             >
               Later
             </button>
@@ -46,7 +44,7 @@ const LoginConfirmationModal = ({ children, redirect = "/" }: TProps) => {
               <PPButton
                 buttonText="Log In Now"
                 variant="solid"
-                className=" text-white py-2 px-4 rounded-md transition-all"
+                className="text-white dark:text-white py-2 px-4 rounded-md transition-all"
               />
             </Link>
           </div>

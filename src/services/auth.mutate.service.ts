@@ -1,8 +1,10 @@
 "use server";
 
+import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
 import axiosInstance from "../lib/axiosInstance";
+import nexiosInstance from "../lib/nexiosInstance";
 import {
   TJwtUser,
   TLoginRegisterUserSuccessData,
@@ -10,8 +12,6 @@ import {
   TUser,
 } from "../types";
 import catchServiceAsync from "../utils/servicesCatchAsync";
-import { jwtDecode } from "jwt-decode";
-import nexiosInstance from "../lib/nexiosInstance";
 
 export const registerUserService = catchServiceAsync(
   async (payload: FieldValues) => {

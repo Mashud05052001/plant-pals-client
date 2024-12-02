@@ -36,16 +36,16 @@ export default function Page() {
           {aboutTeamMembers.map((member) => (
             <div key={member.id} className="relative group">
               <Image
-                src={member.image}
-                alt={member.name}
+                src={member?.image}
+                alt={member?.name}
                 height={200}
                 width={200}
                 className="w-full rounded-full object-cover shadow-lg transition-transform transform group-hover:scale-105"
               />
               <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity hover:scale-105 rounded-full">
                 <div className="text-center text-white">
-                  <h3 className="lg:text-xl font-semibold">{member.name}</h3>
-                  <p className="text-xs md:text-sm">{member.role}</p>
+                  <h3 className="lg:text-xl font-semibold">{member?.name}</h3>
+                  <p className="text-xs md:text-sm">{member?.role}</p>
                 </div>
               </div>
             </div>

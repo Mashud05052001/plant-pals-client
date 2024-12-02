@@ -211,8 +211,8 @@ export default function NewsFeedHeader({
                               isLoading={isFollowingLoading}
                               onClick={() =>
                                 handleFollow(
-                                  (post?.user as TUser)._id,
-                                  (post?.user as TUser).name,
+                                  (post?.user as TUser)?._id,
+                                  (post?.user as TUser)?.name,
                                   "remove"
                                 )
                               }
@@ -228,8 +228,8 @@ export default function NewsFeedHeader({
                               isLoading={isFollowingLoading}
                               onClick={() =>
                                 handleFollow(
-                                  (post?.user as TUser)._id,
-                                  (post?.user as TUser).name,
+                                  (post?.user as TUser)?._id,
+                                  (post?.user as TUser)?.name,
                                   "add"
                                 )
                               }

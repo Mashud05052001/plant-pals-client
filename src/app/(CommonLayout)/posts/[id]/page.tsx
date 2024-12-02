@@ -14,7 +14,7 @@ export default async function Page({ params }: TProps) {
   const loginUserData = await getMyInfos();
   return (
     <div>
-      <div className="bg-white relative shadow-md rounded-lg p-4 mb-6 mx-auto max-w-2xl">
+      <div className="bg-white dark:bg-gray-800 relative shadow-md rounded-lg p-4 -mt-8 -mb-8 mx-auto max-w-2xl">
         <SinglePostHeader post={post} loginUserData={loginUserData} />
         <PostGallery images={post?.images} />
         <SinglePostAction post={post} loginUserData={loginUserData} />

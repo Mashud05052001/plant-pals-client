@@ -1,6 +1,5 @@
 import InfiniteNewsFeed from "@/src/components/modules/newsFeed/InfiniteNewsFeed";
 import NewsFeedFilter from "@/src/components/modules/newsFeed/NewsFeedFilter";
-import SinglePostLoadingSkeleton from "@/src/components/shekeleton/SinglePostLoadingSkeleton";
 import { useGetCategoriesServerSide } from "@/src/hooks/category.serverFetch.hook";
 import { getNewsFeed } from "@/src/services/post.fetch.service";
 import { getMyInfos } from "@/src/services/user.fetch.service";
@@ -14,7 +13,7 @@ export default async function Page({
 
   const posts = await getNewsFeed(
     1,
-    3,
+    5,
     searchParams?.searchTerm,
     searchParams?.category,
     isPremiumContent

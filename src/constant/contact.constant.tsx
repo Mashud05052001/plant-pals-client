@@ -17,6 +17,6 @@ export const contactUsArray = [
     id: 3,
     icon: () => <MapPinIcon className="size-6" />,
     title: "Address",
-    value: "South Sutma, Sylhet, Bangladesh",
+    value: "Sylhet, Bangladesh",
   },
 ];

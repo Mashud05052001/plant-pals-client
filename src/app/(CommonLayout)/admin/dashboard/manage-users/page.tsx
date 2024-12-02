@@ -71,13 +71,13 @@ const ManageUsers = () => {
                     radius: "lg",
                     src: user.profilePicture,
                   }}
-                  name={<strong className="ml-2">{user.name}</strong>}
+                  name={<strong className="ml-2">{user?.name}</strong>}
                 />
               </div>
             </Link>
           );
         case "email":
-          return <p className="ml-2 text-sm">{user.email}</p>;
+          return <p className="ml-2 text-sm">{user?.email}</p>;
         case "role":
           return (
             <Chip
@@ -86,18 +86,18 @@ const ManageUsers = () => {
               size="sm"
               variant="flat"
             >
-              {user.role}
+              {user?.role}
             </Chip>
           );
         case "verified":
           return (
             <Chip
               className="capitalize"
-              color={user.isVerified ? "success" : "warning"}
+              color={user?.isVerified ? "success" : "warning"}
               size="sm"
               variant="flat"
             >
-              {user.isVerified ? "Verified" : "Not-Verified"}
+              {user?.isVerified ? "Verified" : "Not-Verified"}
             </Chip>
           );
         case "actions":
@@ -197,7 +197,7 @@ const ManageUsers = () => {
             key={column.uid}
             align={column.uid === "actions" ? "center" : "start"}
           >
-            {column.name}
+            {column?.name}
           </TableColumn>
         )}
       </TableHeader>

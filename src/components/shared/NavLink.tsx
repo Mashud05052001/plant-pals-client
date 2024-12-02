@@ -2,12 +2,14 @@
 import { TChildrenProps } from "@/src/types";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { MouseEventHandler } from "react";
 
 type TProps = {
   href: string;
+  onClick?: MouseEventHandler<HTMLAnchorElement> | undefined;
 } & TChildrenProps;
 
-const NavLink = ({ children, href, className }: TProps) => {
+const NavLink = ({ children, href, className, onClick }: TProps) => {
   const pathname = usePathname();
 
   const isActive = href === "/" ? pathname === href : pathname.startsWith(href);
@@ -20,6 +22,7 @@ const NavLink = ({ children, href, className }: TProps) => {
           : "text-black dark:text-white"
       } ${className}`}
       href={href}
+      onClick={onClick}
     >
       {children}
     </Link>

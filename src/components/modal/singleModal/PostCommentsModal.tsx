@@ -147,7 +147,7 @@ const PostCommentsModal = ({ children, postId }: TProps) => {
             <div className="space-y-4 mb-8">
               <Textarea
                 type="text"
-                className="w-full border border-gray-300 rounded-md"
+                className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 rounded-md"
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
                 placeholder={
@@ -160,7 +160,7 @@ const PostCommentsModal = ({ children, postId }: TProps) => {
                 {!user?.email ? (
                   <Link
                     href={"/login"}
-                    className="text-sm cursor-pointer hover:underline"
+                    className="text-sm cursor-pointer hover:underline dark:text-blue-400"
                   >
                     Click here to go to the login page
                   </Link>
@@ -189,13 +189,13 @@ const PostCommentsModal = ({ children, postId }: TProps) => {
                         className="rounded-full object-cover object-center"
                       />
                     </div>
-                    <div className="mb-2 border-b pb-2 flex-grow">
+                    <div className="mb-2 border-b pb-2 flex-grow dark:border-gray-700">
                       <div className="flex justify-between items-center">
                         <div>
-                          <strong>
+                          <strong className="dark:text-gray-100">
                             {(comment?.user as TUser)?.name || "Anonymous"}
                           </strong>
-                          <p className="text-sm text-gray-600">
+                          <p className="text-sm text-gray-600 dark:text-gray-400">
                             {moment(comment?.createdAt).format("DD-MM-YYYY LT")}
                           </p>
                         </div>
@@ -208,7 +208,7 @@ const PostCommentsModal = ({ children, postId }: TProps) => {
                                     <Spinner size="sm" />
                                   ) : (
                                     <button
-                                      className="cursor-pointer text-blue-600"
+                                      className="cursor-pointer text-blue-600 dark:text-blue-400"
                                       onClick={editAComment}
                                     >
                                       Save
@@ -218,7 +218,7 @@ const PostCommentsModal = ({ children, postId }: TProps) => {
                                     <Spinner size="sm" color="danger" />
                                   ) : (
                                     <button
-                                      className="cursor-pointer text-red-600"
+                                      className="cursor-pointer text-red-600 dark:text-red-400"
                                       onClick={handleCancelEdit}
                                     >
                                       Cancel
@@ -229,7 +229,7 @@ const PostCommentsModal = ({ children, postId }: TProps) => {
                                 <>
                                   <p className="cursor-pointer">
                                     <MdModeEdit
-                                      className="size-6 hover:text-blue-600 duration-100"
+                                      className="size-6 hover:text-blue-600 dark:hover:text-blue-400 duration-100"
                                       onClick={() => {
                                         setEditingCommentId(comment?._id);
                                         setEditedCommentText(comment?.message);
@@ -238,7 +238,7 @@ const PostCommentsModal = ({ children, postId }: TProps) => {
                                   </p>
                                   <p>
                                     <IoTrashSharp
-                                      className="size-6 hover:text-red-600 duration-100 cursor-pointer"
+                                      className="size-6 hover:text-red-600 dark:hover:text-red-400 duration-100 cursor-pointer"
                                       onClick={() =>
                                         deleteAComment(comment?._id)
                                       }
@@ -253,12 +253,12 @@ const PostCommentsModal = ({ children, postId }: TProps) => {
                         <Textarea
                           value={editedCommentText}
                           onChange={(e) => setEditedCommentText(e.target.value)}
-                          className={`w-full border border-gray-300 rounded-md ${
+                          className={`w-full border border-gray-300 dark:border-gray-600 rounded-md ${
                             commentEditLoading && "animate-pulse"
-                          }`}
+                          } dark:bg-gray-800 dark:text-gray-200`}
                         />
                       ) : (
-                        <p className="p-2 mt-1 bg-gray-200 w-full rounded-md">
+                        <p className="p-2 mt-1 bg-gray-200 dark:bg-gray-700 w-full rounded-md dark:text-gray-100">
                           {comment?.message}
                         </p>
                       )}
@@ -266,7 +266,9 @@ const PostCommentsModal = ({ children, postId }: TProps) => {
                   </div>
                 ))
               ) : (
-                <p>No comments yet. Be the first to comment!</p>
+                <p className="dark:text-gray-400">
+                  No comments yet. Be the first to comment!
+                </p>
               )}
             </div>
           </div>

@@ -24,6 +24,7 @@ export default function ProfileTabs({ userData }: TProps) {
         onSelectionChange={(key) =>
           handleTabChange(key as "posts" | "favourites" | "create_post")
         }
+        className="grid sm:flex"
       >
         <Tab key="posts" title={<p className="px-8 font-medium">My Posts</p>}>
           <MyPosts posts={userData?.myPosts as TPost[]} />

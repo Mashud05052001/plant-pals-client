@@ -13,7 +13,7 @@ export default async function Page({
 
   const posts = await getNewsFeed(
     1,
-    3,
+    5,
     searchParams?.searchTerm,
     searchParams?.category,
     isPremiumContent

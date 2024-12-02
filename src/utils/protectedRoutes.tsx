@@ -3,4 +3,5 @@ export const protectedRoutes = [
   "^/user(/.*)?$",
   "^/admin(/.*)?$",
   "^/posts/update-post/[^/]+$",
+  "/premium-news-feed",
 ];

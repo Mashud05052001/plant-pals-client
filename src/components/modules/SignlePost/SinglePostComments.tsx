@@ -125,137 +125,131 @@ const SinglePostComments = ({ postId }: TProps) => {
   }, [commentDeleteLoading, commentDeleteSuccess]);
 
   return (
-    <div className="relative">
-      {getCommentsLoading ? (
-        <CommentsSkeleton />
-      ) : (
-        <div className="p-4">
-          {/* Add Comment Input */}
-          <div className="space-y-4 mb-8">
-            <Textarea
-              type="text"
-              className="w-full border border-gray-300 rounded-md"
-              value={newComment}
-              onChange={(e) => setNewComment(e.target.value)}
-              placeholder={
-                !user?.email
-                  ? "Please login to comment on any post"
-                  : "Write a comment..."
-              }
+    <div className="p-4">
+      {/* Add Comment Input */}
+      <div className="space-y-4 mb-8">
+        <Textarea
+          type="text"
+          className="w-full border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300"
+          value={newComment}
+          onChange={(e) => setNewComment(e.target.value)}
+          placeholder={
+            !user?.email
+              ? "Please login to comment on any post"
+              : "Write a comment..."
+          }
+        />
+        <div className="flex space-x-4">
+          {!user?.email ? (
+            <Link
+              href={`/login`}
+              className="text-sm cursor-pointer hover:underline dark:text-blue-400"
+            >
+              Click here to go to the login page
+            </Link>
+          ) : (
+            <PPButton
+              buttonText={<IoMdSend className="size-7" />}
+              className="px-4"
+              isLoading={commentCreateLoading}
+              onClick={createAComment}
             />
-            <div className="flex space-x-4">
-              {!user?.email ? (
-                <Link
-                  href={"/login"}
-                  className="text-sm cursor-pointer hover:underline"
-                >
-                  Click here to go to the login page
-                </Link>
-              ) : (
-                <PPButton
-                  buttonText={<IoMdSend className="size-7" />}
-                  className="px-4"
-                  isLoading={commentCreateLoading}
-                  onClick={createAComment}
-                />
-              )}
-            </div>
-          </div>
-          {/* Comments Section */}
-          <div>
-            {comments?.length > 0 ? (
-              comments?.map((comment) => (
-                <div key={comment?._id} className="flex space-x-5 mb-2">
-                  <div className="w-10 h-10 relative">
-                    <Image
-                      src={
-                        (comment?.user as TUser)?.profilePicture || noProfile
-                      }
-                      alt="profile-picture"
-                      fill
-                      className="rounded-full object-cover object-center"
-                    />
-                  </div>
-                  <div className="mb-2 border-b pb-2 flex-grow">
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <strong>
-                          {(comment?.user as TUser)?.name || "Anonymous"}
-                        </strong>
-                        <p className="text-sm text-gray-600">
-                          {moment(comment?.createdAt).format("DD-MM-YYYY LT")}
-                        </p>
-                      </div>
-                      {user?.email &&
-                        user.email === (comment?.user as TUser)?.email && (
-                          <div className="flex space-x-4">
-                            {editingCommentId === comment?._id ? (
-                              <>
-                                {commentEditLoading ? (
-                                  <Spinner size="sm" />
-                                ) : (
-                                  <button
-                                    className="cursor-pointer text-blue-600"
-                                    onClick={editAComment}
-                                  >
-                                    Save
-                                  </button>
-                                )}
-                                {commentDeleteLoading ? (
-                                  <Spinner size="sm" color="danger" />
-                                ) : (
-                                  <button
-                                    className="cursor-pointer text-red-600"
-                                    onClick={handleCancelEdit}
-                                  >
-                                    Cancel
-                                  </button>
-                                )}
-                              </>
-                            ) : (
-                              <>
-                                <p className="cursor-pointer">
-                                  <MdModeEdit
-                                    className="size-6 hover:text-blue-600 duration-100"
-                                    onClick={() => {
-                                      setEditingCommentId(comment?._id);
-                                      setEditedCommentText(comment?.message);
-                                    }}
-                                  />
-                                </p>
-                                <p>
-                                  <IoTrashSharp
-                                    className="size-6 hover:text-red-600 duration-100 cursor-pointer"
-                                    onClick={() => deleteAComment(comment?._id)}
-                                  />
-                                </p>
-                              </>
-                            )}
-                          </div>
-                        )}
-                    </div>
-                    {editingCommentId === comment?._id ? (
-                      <Textarea
-                        value={editedCommentText}
-                        onChange={(e) => setEditedCommentText(e.target.value)}
-                        className={`w-full border border-gray-300 rounded-md ${
-                          commentEditLoading && "animate-pulse"
-                        }`}
-                      />
-                    ) : (
-                      <p className="p-2 mt-1 bg-gray-200 w-full rounded-md">
-                        {comment?.message}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              ))
-            ) : (
-              <p>No comments yet. Be the first to comment!</p>
-            )}
-          </div>
+          )}
         </div>
-      )}
+      </div>
+      {/* Comments Section */}
+      <div>
+        {comments?.length > 0 ? (
+          comments?.map((comment) => (
+            <div key={comment?._id} className="flex space-x-5 mb-2">
+              <div className="w-10 h-10 relative">
+                <Image
+                  src={(comment?.user as TUser)?.profilePicture || noProfile}
+                  alt="profile-picture"
+                  fill
+                  className="rounded-full object-cover object-center"
+                />
+              </div>
+              <div className="mb-2 border-b pb-2 flex-grow dark:border-gray-600">
+                <div className="flex justify-between items-center">
+                  <div>
+                    <strong className="dark:text-gray-200">
+                      {(comment?.user as TUser)?.name || "Anonymous"}
+                    </strong>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      {moment(comment?.createdAt).format("DD-MM-YYYY LT")}
+                    </p>
+                  </div>
+                  {user?.email &&
+                    user.email === (comment?.user as TUser)?.email && (
+                      <div className="flex space-x-4">
+                        {editingCommentId === comment?._id ? (
+                          <>
+                            {commentEditLoading ? (
+                              <Spinner size="sm" />
+                            ) : (
+                              <button
+                                className="cursor-pointer text-blue-600 dark:text-blue-400"
+                                onClick={editAComment}
+                              >
+                                Save
+                              </button>
+                            )}
+                            {commentDeleteLoading ? (
+                              <Spinner size="sm" color="danger" />
+                            ) : (
+                              <button
+                                className="cursor-pointer text-red-600 dark:text-red-400"
+                                onClick={handleCancelEdit}
+                              >
+                                Cancel
+                              </button>
+                            )}
+                          </>
+                        ) : (
+                          <>
+                            <p className="cursor-pointer">
+                              <MdModeEdit
+                                className="size-6 hover:text-blue-600 duration-100 dark:hover:text-blue-400"
+                                onClick={() => {
+                                  setEditingCommentId(comment?._id);
+                                  setEditedCommentText(comment?.message);
+                                }}
+                              />
+                            </p>
+                            <p>
+                              <IoTrashSharp
+                                className="size-6 hover:text-red-600 duration-100 cursor-pointer dark:hover:text-red-400"
+                                onClick={() => deleteAComment(comment?._id)}
+                              />
+                            </p>
+                          </>
+                        )}
+                      </div>
+                    )}
+                </div>
+                {editingCommentId === comment?._id ? (
+                  <Textarea
+                    value={editedCommentText}
+                    onChange={(e) => setEditedCommentText(e.target.value)}
+                    className={`w-full border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 ${
+                      commentEditLoading && "animate-pulse"
+                    }`}
+                  />
+                ) : (
+                  <p className="p-2 mt-1 bg-gray-200 w-full rounded-md dark:bg-gray-700 dark:text-gray-300">
+                    {comment?.message}
+                  </p>
+                )}
+              </div>
+            </div>
+          ))
+        ) : (
+          <p className="dark:text-gray-300">
+            No comments yet. Be the first to comment!
+          </p>
+        )}
+      </div>
     </div>
   );
 };

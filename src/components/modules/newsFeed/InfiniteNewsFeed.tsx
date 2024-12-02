@@ -33,14 +33,13 @@ export default function InfiniteNewsFeed({
   const [currentPage, setCurrentPage] = useState(1);
   const { user } = useUserProvider();
   const loginUserEmail = user?.email || null;
-
   useEffect(() => {
     const filterPosts = async () => {
       const searchTerm = searchParams?.searchTerm || "";
       const category = searchParams?.category || "";
       const newPosts = await getNewsFeed(
         1,
-        3,
+        5,
         searchTerm,
         category,
         isPremiumContent
@@ -53,11 +52,11 @@ export default function InfiniteNewsFeed({
   }, [searchParams, isPremiumContent]);
 
   const loadMorePosts = async () => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    // await new Promise((resolve) => setTimeout(resolve, 1000));
     const nextPage = currentPage + 1;
     const newPostData = await getNewsFeed(
       nextPage,
-      3,
+      5,
       searchParams?.searchTerm,
       searchParams?.category,
       isPremiumContent

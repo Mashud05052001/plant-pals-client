@@ -38,7 +38,7 @@ const RegisterPage = () => {
       setUserLoading(true);
       router.replace(redirect);
     }
-  }, [isSuccess]);
+  }, [isSuccess, redirect, router, isLoading]);
   return (
     <div>
       <CenterContainer className="w-[100vw]">
@@ -87,7 +87,7 @@ const RegisterPage = () => {
             />
 
             <p className="text-center text-sm text-zinc-700 dark:text-zinc-300">
-              Don&apos;t have an account?
+              Already have an account?
               <Link href="/login" className="font-semibold underline ml-1">
                 Login
               </Link>

@@ -100,7 +100,6 @@ export default function SinglePostHeader({ post, loginUserData }: TProps) {
       handleFollowingUser(userId);
     }
   };
-  console.log(loginUserData);
   useEffect(() => {
     setTimeout(() => {
       setDeletedPostId("");
@@ -192,8 +191,8 @@ export default function SinglePostHeader({ post, loginUserData }: TProps) {
                               isLoading={isFollowingLoading}
                               onClick={() =>
                                 handleFollow(
-                                  (post?.user as TUser)._id,
-                                  (post?.user as TUser).name,
+                                  (post?.user as TUser)?._id,
+                                  (post?.user as TUser)?.name,
                                   "remove"
                                 )
                               }
@@ -209,8 +208,8 @@ export default function SinglePostHeader({ post, loginUserData }: TProps) {
                               isLoading={isFollowingLoading}
                               onClick={() =>
                                 handleFollow(
-                                  (post?.user as TUser)._id,
-                                  (post?.user as TUser).name,
+                                  (post?.user as TUser)?._id,
+                                  (post?.user as TUser)?.name,
                                   "add"
                                 )
                               }
@@ -297,7 +296,7 @@ export default function SinglePostHeader({ post, loginUserData }: TProps) {
 
         <div className="rounded-lg px-3 pb-3">
           <div className="flex items-end cursor-pointer hover:underline w-fit ">
-            <h3 className="font-semibold text-lg text-gray-800">
+            <h3 className="font-semibold text-lg text-gray-800 dark:text-gray-200">
               {post?.title}
               <span className="pl-2 text-sm pb-0.5 dark:text-gray-400">
                 ({postCategory && postCategory})
@@ -305,12 +304,12 @@ export default function SinglePostHeader({ post, loginUserData }: TProps) {
             </h3>
           </div>
 
-          <p className="text-sm text-gray-500 mb-3 mt-1">
+          <p className="text-sm text-gray-400 mb-3 mt-1">
             Date: {moment(post?.createdAt).format(`DD-MM-YYYY`)}
           </p>
 
           {/* Post Description */}
-          <div className="article-content">
+          <div className="article-content dark:text-gray-300">
             <div
               dangerouslySetInnerHTML={{
                 __html: DOMPurify.sanitize(post?.description as string),

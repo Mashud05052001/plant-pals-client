@@ -50,7 +50,7 @@ const UpdateCategory = ({ categories }: { categories: TCategory[] }) => {
         >
           {categories.map((category) => (
             <SelectItem key={category?._id} value={category?.name}>
-              {category.name}
+              {category?.name}
             </SelectItem>
           ))}
         </Select>
